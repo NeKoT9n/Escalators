@@ -11,16 +11,20 @@ namespace Assets._Shape_Escape.Scripts.Scenes.Game.Infostracture
 
         private readonly ReactiveProperty<Vector2> _moveDirection;
 
+        private readonly Joystick _joystick;
         private readonly CompositeDisposable _disposables = new();
 
-        public InputService()
+        public InputService(Joystick joystick)
         {
-            
+            _joystick = joystick;
         }
 
         public void Initialize()
-        {        
-            
+        {
+            Observable
+                .EveryUpdate()
+                .Subscribe(_ => _moveDirection.Value = _joystick.Direction)
+                .AddTo(_disposables);
         }
 
         public void Dispose()
