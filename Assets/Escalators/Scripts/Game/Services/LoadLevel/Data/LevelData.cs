@@ -9,14 +9,10 @@ namespace Assets.CodeCore.Scripts.Game.Services
     public class LevelData : ScriptableObjectGameData
     {
         [SerializeField] private string _name;
-        [SerializeField] private List<SpawnPoint> _spawnPoints;
+        [SerializeField] private SpawnPoint _playerSpawnPoint;
 
-        public List<SpawnPoint> SpawnPoints => _spawnPoints;
+        public SpawnPoint PlayerSpawnPoint => _playerSpawnPoint;
         public string Name => _name;
 
-        public void SetSpawnPoints(List<SpawnPoint> points)
-        {
-            _spawnPoints = points;
-        }
     }
 }

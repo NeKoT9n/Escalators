@@ -21,6 +21,10 @@ namespace Assets.CodeCore.Scripts.Game.Startup
             {
                 _gameStateFactory.CreateState<InitializeState>(),
                 _gameStateFactory.CreateState<LoadLevelState>(),
+                _gameStateFactory.CreateState<CrossingRoadsState>(),
+                _gameStateFactory.CreateState<PreBattleState>(),
+                _gameStateFactory.CreateState<BattleState>(),
+                _gameStateFactory.CreateState<ChestInteractionState>(),
                 _gameStateFactory.CreateState<WinState>(),
                 _gameStateFactory.CreateState<LoseState>(),
                 _gameStateFactory.CreateState<PauseState>()
