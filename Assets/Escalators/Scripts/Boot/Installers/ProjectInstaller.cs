@@ -1,4 +1,5 @@
 ﻿using Assets.CodeCore.Scripts.Game.Services.SceneLoad;
+using Assets.Escalators.Scripts.Core.Services.Update;
 using UnityEngine;
 using Zenject;
 

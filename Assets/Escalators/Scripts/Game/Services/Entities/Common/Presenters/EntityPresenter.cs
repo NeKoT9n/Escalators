@@ -1,5 +1,6 @@
 ﻿using Assets.CodeCore.Scripts.Game.Infostracture;
 using Assets.Escalators.Scripts.Game.Services.Entities.Common.View;
+using Cysharp.Threading.Tasks;
 using System;
 using UniRx;
 
@@ -20,17 +21,17 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.Common.Presenters
         public virtual void Initialize()
         {
             _entity.Position
-                .Subscribe(position => _entityView.SetPosition(position))
+                .Subscribe(position => _entityView.Move(position))
                 .AddTo(_disposables);
 
             _entity.Rotation
                 .Subscribe(rotation => _entityView.SetRotation(rotation))
                 .AddTo(_disposables);
 
-            Observable
-                .EveryUpdate()
-                .Subscribe(_ => _entity.Brain.Value.Update())
+            _entity.Appeared
+                .Subscribe(_ => _entityView.PlayAppereEffect())
                 .AddTo(_disposables);
+            
         }
 
         public virtual void Dispose()

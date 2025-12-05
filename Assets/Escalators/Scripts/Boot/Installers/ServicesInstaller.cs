@@ -1,7 +1,8 @@
 ﻿using Assets._Shape_Escape.Scripts.Scenes.Game.Infostracture;
 using Assets.CodeCore.Scripts.Game.Services;
+using Assets.Escalators.Scripts.Core.Services.Update;
+using Assets.Escalators.Scripts.Game.Services.Camera;
 using Assets.Escalators.Scripts.Game.Services.Entities.Abstractions;
-using System;
 using Zenject;
 
 namespace Assets.Escalators.Scripts.Installers
@@ -16,14 +17,21 @@ namespace Assets.Escalators.Scripts.Installers
                 .AsSingle();
 
             Container
-                .Bind<IInputService>()
-                .To<InputService>()
+                .BindInterfacesTo<InputService>()
                 .AsSingle();   
 
             Container
-                .Bind<IPlayerService>()
-                .To<PlayerService>()
+                .BindInterfacesTo<PlayerService>()     
                 .AsSingle();
+            
+            Container
+                .BindInterfacesTo<TargetZCameraService>()     
+                .AsSingle();
+
+            Container
+                .Bind<IUpdateService>()
+                .To<UpdateService>().AsSingle();
+            
 
         }
 

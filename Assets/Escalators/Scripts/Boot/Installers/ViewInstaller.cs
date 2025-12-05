@@ -1,5 +1,6 @@
 ﻿using Assets.CodeCore.Scripts.Game.Services.Entitieys.Model;
 using Assets.Escalators.Scripts.Game.Services.Entities.PlayerLogic.Presenters;
+using Unity.Cinemachine;
 using UnityEngine;
 using Zenject;
 
@@ -8,6 +9,7 @@ namespace Assets.Escalators.Scripts.Installers
     public class ViewInstaller : MonoInstaller
     {
         [SerializeField] private FixedJoystick _joystick;
+        [SerializeField] private CinemachineCamera _camera;
         public override void InstallBindings()
         {
             BindInstances();
@@ -17,7 +19,8 @@ namespace Assets.Escalators.Scripts.Installers
 
         private void BindInstances()
         {
-            Container.BindInstance<Joystick>(_joystick).AsSingle();
+            Container.Bind<Joystick>().FromInstance(_joystick).AsSingle();
+            Container.Bind<CinemachineCamera>().FromInstance(_camera).AsSingle();
         }
 
         private void BindPresenters()

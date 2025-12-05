@@ -1,4 +1,5 @@
-﻿using Assets.Escalators.Scripts.Game.Services.Entities.Abstractions;
+﻿using Assets.Escalators.Scripts.Game.Services.Camera;
+using Assets.Escalators.Scripts.Game.Services.Entities.Abstractions;
 using Assets.Escalators.Scripts.Game.Services.Entities.PlayerLogic;
 using Assets.Escalators.Scripts.Game.Services.Entities.PlayerLogic.Presenters;
 using Cysharp.Threading.Tasks;
@@ -10,11 +11,16 @@ namespace Assets.CodeCore.Scripts.Game.Services
     {
         private readonly EntityFactory _entityFactory;
         private readonly IPlayerService _playerService;
+        private readonly ICameraService _cameraService;
 
-        public LoadLevelService(EntityFactory entityFactory, IPlayerService playerService)
+        public LoadLevelService(
+            EntityFactory entityFactory,
+            IPlayerService playerService,
+            ICameraService cameraService)
         {
             _entityFactory = entityFactory;
             _playerService = playerService;
+            _cameraService = cameraService;
         }
 
         public async UniTask LoadLevel(LevelData levelData)

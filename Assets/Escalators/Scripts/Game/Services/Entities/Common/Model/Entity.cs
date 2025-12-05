@@ -14,7 +14,7 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.Common
         public ReactiveProperty<Quaternion> Rotation { get; } = new();
         public ReactiveProperty<float> CurrentHealth { get; } = new();
         public ReactiveProperty<bool> IsDead { get; } = new(false);
-        public ReactiveCommand OnAttack { get; } = new();
+        public ReactiveCommand Appeared { get; } = new();
         public ReactiveProperty<bool> IsMoving { get; } = new(false);
 
         public ReactiveProperty<Brain> Brain = new();
@@ -38,6 +38,11 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.Common
         public void SetBrain(Brain brain)
         {
             Brain.Value = brain;
+        }
+
+        public void UpdateBrain()
+        {
+            Brain.Value.Update();
         }
 
         public void ApplyDamage(float damage)

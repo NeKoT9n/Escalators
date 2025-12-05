@@ -20,5 +20,5 @@ MonoBehaviour:
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
   _hp: 100
-  _moveSpeed: 3
+  _moveSpeed: 5
   _attackRange: 1

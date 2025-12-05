@@ -13,6 +13,7 @@ public class PlayerMover : IMover
 
     public void Move(Vector2 input, float deltaTime)
     {
+
         if (input.sqrMagnitude < 0.01f)
         {
             _model.IsMoving.Value = false;
@@ -22,7 +23,7 @@ public class PlayerMover : IMover
         _model.IsMoving.Value = true;
 
         Vector3 direction = new Vector3(input.x, 0, input.y).normalized;
-        Vector3 newPosition = _model.Position.Value + direction * _model.MoveSpeed;
+        Vector3 newPosition = _model.Position.Value + direction * _model.MoveSpeed * deltaTime;
 
         _model.Position.Value = newPosition;
         _model.Rotation.Value = Quaternion.LookRotation(direction);

@@ -26,18 +26,20 @@ namespace Assets.CodeCore.Scripts.Game.Services
             _diContainer = diContainer;
         }
 
-        public async UniTask<TView> CreateEntity<TView>(AssetReferenceGameObject reference, Vector2 position)
-            where TView: class, IWorldView
+        public async UniTask<TView> CreateEntity<TView>(AssetReferenceGameObject reference, Vector2 position, bool isActive = true)
+    where TView : class, IWorldView
         {
             EntityView prefab = await _assetProvider.LoadGameObject<EntityView>(reference)
-                ?? throw new Exception($"Loading prefab error {reference.RuntimeKey}"); 
+                ?? throw new Exception($"Loading prefab error {reference.RuntimeKey}");
 
             TView component = _diContainer
                 .InstantiatePrefab(prefab, position, Quaternion.identity, null)
                 .GetComponent<TView>()
                 ?? throw new Exception($"Component {typeof(TView)} not found on prefab {reference.RuntimeKey}");
 
-            return component; 
+            component.GameObject.SetActive(isActive);
+
+            return component;
         }
 
 

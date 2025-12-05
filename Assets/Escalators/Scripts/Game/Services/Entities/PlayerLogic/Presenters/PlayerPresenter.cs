@@ -1,5 +1,6 @@
 ﻿using Assets.CodeCore.Scripts.Game.Infostracture;
 using Assets.CodeCore.Scripts.Game.Services.Entitieys.Model;
+using Assets.Escalators.Scripts.Game.Services.Camera;
 using Assets.Escalators.Scripts.Game.Services.Entities.Abstractions;
 using Assets.Escalators.Scripts.Game.Services.Entities.Common.Presenters;
 using Assets.Escalators.Scripts.Game.Services.Entities.PlayerLogic.View;
@@ -18,14 +19,17 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.PlayerLogic.Presenter
         private EntityPresenter _playerPresenter;
 
         private readonly EntityViewFactory _viewFactory;
+        private readonly ICameraService _cameraService;
         private readonly CompositeDisposable _disposables = new();
 
         public PlayerPresenter(
             IPlayerService playerService,
-            EntityViewFactory viewFactory)          
+            EntityViewFactory viewFactory,
+            ICameraService cameraService)
         {
             _playerService = playerService;
             _viewFactory = viewFactory;
+            _cameraService = cameraService;
         }
 
         public void Initialize()
@@ -43,6 +47,8 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.PlayerLogic.Presenter
             var view = await _viewFactory.Spawn(player);
             _playerView = (PlayerView)view;
 
+            _cameraService.SetTarget(view.transform);
+           
             _playerPresenter = new(player, _playerView);
             _playerPresenter.Initialize();
         }
