@@ -15,6 +15,11 @@ MonoBehaviour:
   m_GroupName: 1_Level
   m_GUID: e583613c31f9f9644859a12096a9df00
   m_SerializeEntries:
+  - m_GUID: b0949e533ae6fe54387ad9dd530d6c36
+    m_Address: 1_level
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c163e222c8fc6724b960df701e929a2d
     m_Address: 1_LevelData
     m_ReadOnly: 0

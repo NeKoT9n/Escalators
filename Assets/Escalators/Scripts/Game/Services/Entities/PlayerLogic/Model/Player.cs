@@ -7,8 +7,8 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.PlayerLogic
 {
     public class Player : Entity
     {
-        public Player(Vector3 startPosition, EntityData entityData, Brain brain) 
-            : base(startPosition, entityData, brain)
+        public Player(Vector3 startPosition, EntityData entityData) 
+            : base(startPosition, entityData)
         {
         }
     }

@@ -1,5 +1,6 @@
 ﻿using Assets.CodeCore.Scripts.Game.Services.Entitieys.Data;
 using Assets.Escalators.Scripts.Game.Services.Entities.Abstractions;
+using Assets.Escalators.Scripts.Game.Services.Entities.Common.Model;
 using Assets.Escalators.Scripts.Game.Services.Entities.PlayerLogic.Presenters;
 using UniRx;
 using UnityEngine;
@@ -26,11 +27,16 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.Common
 
         private readonly EntityData _data;
 
-        public Entity(Vector3 startPosition, EntityData entityData, Brain brain)
+        public Entity(Vector3 startPosition, EntityData entityData)
         {
             _data = entityData;
             Position.Value = startPosition;
             CurrentHealth.Value = MaxHp;
+            Brain.Value = new EmptyBrain();
+        }
+
+        public void SetBrain(Brain brain)
+        {
             Brain.Value = brain;
         }
 

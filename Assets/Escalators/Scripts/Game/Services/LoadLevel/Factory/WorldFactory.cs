@@ -1,6 +1,7 @@
 ﻿using Assets.CodeCore.Scripts.Game.Providers.Assets;
 using Assets.CodeCore.Scripts.Game.Providers.Entities;
 using Assets.Escalators.Scripts.Core.Abstractions.View.IWorldView;
+using Assets.Escalators.Scripts.Game.Services.Entities.Common.View;
 using Cysharp.Threading.Tasks;
 using System;
 using UnityEngine;
@@ -12,12 +13,12 @@ namespace Assets.CodeCore.Scripts.Game.Services
     public class WorldFactory
     {
         private readonly IAssetProvider _assetProvider;
-        private readonly IEntityDataProvider _entityDataProvider;
+        private readonly IEntityDataContainer _entityDataProvider;
         private readonly DiContainer _diContainer;
 
         public WorldFactory(
             IAssetProvider assetProvider,
-            IEntityDataProvider entityDataProvider,
+            IEntityDataContainer entityDataProvider,
             DiContainer diContainer)
         {
             _assetProvider = assetProvider;
@@ -28,7 +29,7 @@ namespace Assets.CodeCore.Scripts.Game.Services
         public async UniTask<TView> CreateEntity<TView>(AssetReferenceGameObject reference, Vector2 position)
             where TView: class, IWorldView
         {
-            GameObject prefab = await _assetProvider.LoadGameObject<GameObject>(reference)
+            EntityView prefab = await _assetProvider.LoadGameObject<EntityView>(reference)
                 ?? throw new Exception($"Loading prefab error {reference.RuntimeKey}"); 
 
             TView component = _diContainer

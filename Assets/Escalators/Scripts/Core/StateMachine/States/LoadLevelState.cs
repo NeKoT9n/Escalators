@@ -30,6 +30,8 @@ namespace Assets.CodeCore.Scripts.Game.Startup.GameStates.States
             LevelData levelData = _levelDataProvider.LevelData;
             await _loadLevelService.LoadLevel(levelData);
 
+            _stateSwitcher.TrySwitchState<CrossingRoadsState>();
+
         }
 
         public void Exit()

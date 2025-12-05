@@ -2,9 +2,9 @@
 {
     public enum EntityTypeId 
     { 
-        Nono = 0,
+        None = 0,
         Player = 1,
-        Melee = 2,
+        Enemy = 2,
     }
 
 }

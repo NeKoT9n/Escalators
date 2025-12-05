@@ -11,9 +11,9 @@ namespace Assets.CodeCore.Scripts.Game.Services.Entitieys.Factory.Model
     {
         public EntityTypeId Key => EntityTypeId.Player;
 
-        public Entity Create(EntityData entityData, Vector2 spawnPosition, Brain brain)
+        public Entity Create(EntityData entityData, Vector2 spawnPosition)
         {
-            return new Player(spawnPosition, entityData, brain);
+            return new Player(spawnPosition, entityData);
         }
     }
 }

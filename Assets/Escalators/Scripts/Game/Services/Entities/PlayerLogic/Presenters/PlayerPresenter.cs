@@ -3,8 +3,10 @@ using Assets.CodeCore.Scripts.Game.Services.Entitieys.Model;
 using Assets.Escalators.Scripts.Game.Services.Entities.Abstractions;
 using Assets.Escalators.Scripts.Game.Services.Entities.Common.Presenters;
 using Assets.Escalators.Scripts.Game.Services.Entities.PlayerLogic.View;
+using Cysharp.Threading.Tasks;
 using System;
 using UniRx;
+using UnityEngine;
 
 namespace Assets.Escalators.Scripts.Game.Services.Entities.PlayerLogic.Presenters
 {
@@ -16,7 +18,7 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.PlayerLogic.Presenter
         private EntityPresenter _playerPresenter;
 
         private readonly EntityViewFactory _viewFactory;
-        private readonly CompositeDisposable _disposables;
+        private readonly CompositeDisposable _disposables = new();
 
         public PlayerPresenter(
             IPlayerService playerService,
@@ -28,18 +30,21 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.PlayerLogic.Presenter
 
         public void Initialize()
         {
-            _playerService.Player
-                .Subscribe(player => SpawnPlayer(player))
-                .AddTo(_disposables);
+            _playerService.SpawnPlayer
+                .Subscribe(async command =>
+                {
+                    await SpawnPlayer(command.Player);
+                    command.Completion.TrySetResult();
+                });
         }
-
-        public async void SpawnPlayer(Player player)
+        
+        public async UniTask SpawnPlayer(Player player)
         {
             var view = await _viewFactory.Spawn(player);
             _playerView = (PlayerView)view;
 
             _playerPresenter = new(player, _playerView);
-            _playerPresenter.Initialize(); 
+            _playerPresenter.Initialize();
         }
 
         public void Dispose()

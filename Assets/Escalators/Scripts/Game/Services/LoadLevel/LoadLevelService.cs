@@ -2,29 +2,32 @@
 using Assets.Escalators.Scripts.Game.Services.Entities.PlayerLogic;
 using Assets.Escalators.Scripts.Game.Services.Entities.PlayerLogic.Presenters;
 using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 namespace Assets.CodeCore.Scripts.Game.Services
 {
     public class LoadLevelService : ILoadLevelService
     {
         private readonly EntityFactory _entityFactory;
-        private readonly PlayerService _playerService;
+        private readonly IPlayerService _playerService;
 
-        public LoadLevelService(EntityFactory entityFactory, PlayerService playerService)
+        public LoadLevelService(EntityFactory entityFactory, IPlayerService playerService)
         {
             _entityFactory = entityFactory;
             _playerService = playerService;
         }
 
-        public UniTask LoadLevel(LevelData levelData)
+        public async UniTask LoadLevel(LevelData levelData)
         {
+            await LoadPlayer(levelData.PlayerSpawnPoint.Position);
+        }
 
+        private async UniTask LoadPlayer(Vector2 position)
+        {
             Player player = (Player)_entityFactory
-                .Create(EntityTypeId.Player, levelData.PlayerSpawnPoint.Position);
+                            .Create(EntityTypeId.Player, position);
 
-            _playerService.SetPlayer(player);
-
-            return UniTask.CompletedTask;   
+            await _playerService.Spawn(player);
         }
     }
 

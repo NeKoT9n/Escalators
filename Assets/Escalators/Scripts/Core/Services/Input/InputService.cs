@@ -9,7 +9,7 @@ namespace Assets._Shape_Escape.Scripts.Scenes.Game.Infostracture
     {
         public IReadOnlyReactiveProperty<Vector2> MoveDirection => _moveDirection;
 
-        private readonly ReactiveProperty<Vector2> _moveDirection;
+        private readonly ReactiveProperty<Vector2> _moveDirection = new();
 
         private readonly Joystick _joystick;
         private readonly CompositeDisposable _disposables = new();

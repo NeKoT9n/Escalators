@@ -8,6 +8,6 @@ namespace Assets.CodeCore.Scripts.Game.Services.Entitieys.Factory.Model
 {
     public interface IEntityFactoryPlugin : IFactoryPlugin<EntityTypeId>
     {
-        public Entity Create(EntityData entityData, Vector2 spawnPosition, Brain brain);
+        public Entity Create(EntityData entityData, Vector2 spawnPosition);
     }
 }

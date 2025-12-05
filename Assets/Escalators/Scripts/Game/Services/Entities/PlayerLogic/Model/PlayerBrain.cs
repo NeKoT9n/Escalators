@@ -17,7 +17,7 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.PlayerLogic
 
         public override void Update() 
         {
-            _mover.Move(_inputService.MoveDirection.Value, Time.deltaTime);
+            _mover?.Move(_inputService.MoveDirection.Value, Time.deltaTime);
         }
 
     }

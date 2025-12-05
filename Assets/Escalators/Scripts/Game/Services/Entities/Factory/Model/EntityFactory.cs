@@ -12,11 +12,11 @@ namespace Assets.CodeCore.Scripts.Game.Services
 {
     public class EntityFactory : PluginFactoryBase<EntityTypeId, IEntityFactoryPlugin>
     {
-        private readonly IEntityDataProvider _entityDataProvider;
+        private readonly IEntityDataContainer _entityDataProvider;
         private readonly IBrainFactory _brainFactory;
 
         public EntityFactory(
-            IEntityDataProvider entityDataProvider,
+            IEntityDataContainer entityDataProvider,
             IBrainFactory brainFactory,
             IEnumerable<IEntityFactoryPlugin> factories) : base (factories)
         {
@@ -27,17 +27,16 @@ namespace Assets.CodeCore.Scripts.Game.Services
         public Entity Create(EntityTypeId typeId, Vector2 position)
         {
             EntityData data = _entityDataProvider.GetBy(typeId);
-            Brain brain = _brainFactory.Create(typeId);
 
             var factory = GetFactory(typeId);
 
-            return factory.Create(data, position, brain);
+            var entity = factory.Create(data, position);
+
+            Brain brain = _brainFactory.Create(entity, entity.Type);
+            entity.SetBrain(brain);
+
+            return entity;
         }
 
-    }
-
-    public interface IBrainFactory
-    {
-        public Brain Create(EntityTypeId typeId);
     }
 }
