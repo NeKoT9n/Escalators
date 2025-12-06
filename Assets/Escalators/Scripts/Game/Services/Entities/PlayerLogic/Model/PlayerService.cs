@@ -34,6 +34,11 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.Abstractions
             _player.Value.Appeared.Execute();
         }
 
+        public void Kill()
+        {
+            Player.Value.kill();
+        }
+
         public void Update()
         {
             _player.Value.UpdateBrain();

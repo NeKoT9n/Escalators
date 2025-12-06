@@ -39,19 +39,27 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.PlayerLogic.Presenter
                 {
                     await SpawnPlayer(command.Player);
                     command.Completion.TrySetResult();
-                });
+                }); 
         }
-        
+        private void InitializeView()
+        {
+            _playerView.Collided
+                .Subscribe(_ => _playerService.Kill());
+        }
+
         public async UniTask SpawnPlayer(Player player)
         {
             var view = await _viewFactory.Spawn(player);
             _playerView = (PlayerView)view;
+            InitializeView();
 
             _cameraService.SetTarget(view.transform);
-           
+
             _playerPresenter = new(player, _playerView);
             _playerPresenter.Initialize();
         }
+
+
 
         public void Dispose()
         {

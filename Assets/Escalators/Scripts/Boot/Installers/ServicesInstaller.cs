@@ -3,6 +3,7 @@ using Assets.CodeCore.Scripts.Game.Services;
 using Assets.Escalators.Scripts.Core.Services.Update;
 using Assets.Escalators.Scripts.Game.Services.Camera;
 using Assets.Escalators.Scripts.Game.Services.Entities.Abstractions;
+using Assets.Escalators.Scripts.Game.Services.LoadLevel;
 using Zenject;
 
 namespace Assets.Escalators.Scripts.Installers
@@ -31,8 +32,10 @@ namespace Assets.Escalators.Scripts.Installers
             Container
                 .Bind<IUpdateService>()
                 .To<UpdateService>().AsSingle();
-            
 
+            Container
+                .Bind<ILevelBuilder>()
+                .To<LevelBuilder>().AsSingle();
         }
 
 

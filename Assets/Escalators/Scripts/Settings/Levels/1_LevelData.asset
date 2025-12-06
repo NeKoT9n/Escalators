@@ -15,3 +15,37 @@ MonoBehaviour:
   _name: 1_level
   _playerSpawnPoint:
     _position: {x: 0, y: 0.5, z: -8}
+  _buildData:
+    StartPosition: {x: 0, y: 0, z: 0}
+    StartPlacePrefab:
+      m_AssetGUID: f77ec67de3e6d9341b3e58fcff193bbf
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    ArenaPrefab:
+      m_AssetGUID: 348f741ad8f238242ac43e8016f95924
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    RoadPrefab:
+      m_AssetGUID: 1236f0e943206174ebf6cdceda80985f
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    Tracks:
+    - Roads:
+      - MoveSpeedMin: 2
+        MoveSpeedMax: 3
+        SpawnInterval: 3
+      RoadSpacing: 2
+    - Roads:
+      - MoveSpeedMin: 3
+        MoveSpeedMax: 4
+        SpawnInterval: 3
+      - MoveSpeedMin: 3
+        MoveSpeedMax: 5
+        SpawnInterval: 2
+      RoadSpacing: 2

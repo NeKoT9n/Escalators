@@ -31,6 +31,9 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.Common.Presenters
             _entity.Appeared
                 .Subscribe(_ => _entityView.PlayAppereEffect())
                 .AddTo(_disposables);
+
+            _entity.Died
+                .Subscribe(_ => _entityView.Kill());
             
         }
 

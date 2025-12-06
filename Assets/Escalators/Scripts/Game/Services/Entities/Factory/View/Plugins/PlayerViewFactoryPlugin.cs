@@ -18,7 +18,7 @@ namespace Assets.CodeCore.Scripts.Game.Services.Entitieys.Model
 
         public async UniTask<EntityView> Create(AssetReferenceGameObject prefab, Vector2 position)
         {
-            return await _worldFactory.CreateEntity<EntityView>(prefab, position, isActive: false);
+            return await _worldFactory.Create<EntityView>(prefab, position, isActive: false);
         }
     }
 }

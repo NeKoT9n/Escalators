@@ -13,7 +13,7 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.Common
         public ReactiveProperty<Vector3> Position { get; } = new();
         public ReactiveProperty<Quaternion> Rotation { get; } = new();
         public ReactiveProperty<float> CurrentHealth { get; } = new();
-        public ReactiveProperty<bool> IsDead { get; } = new(false);
+        public ReactiveCommand Died { get; } = new();
         public ReactiveCommand Appeared { get; } = new();
         public ReactiveProperty<bool> IsMoving { get; } = new(false);
 
@@ -48,7 +48,14 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.Common
         public void ApplyDamage(float damage)
         {
             CurrentHealth.Value = Mathf.Max(0, CurrentHealth.Value - damage);
-            if (CurrentHealth.Value <= 0) IsDead.Value = true;
+
+            if (CurrentHealth.Value <= 0)
+                kill();
+        }
+
+        public void kill()
+        {
+            Died.Execute();
         }
 
     }

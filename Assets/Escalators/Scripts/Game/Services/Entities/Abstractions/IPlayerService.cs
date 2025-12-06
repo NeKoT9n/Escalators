@@ -10,6 +10,7 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.Abstractions
         public IReactiveCommand<SpawnCommand> SpawnPlayer { get; }
         public UniTask Spawn(Player player);
         public void Appear();
+        public void Kill();
     }
 
 }

@@ -26,14 +26,18 @@ namespace Assets.CodeCore.Scripts.Game.Services
             _diContainer = diContainer;
         }
 
-        public async UniTask<TView> CreateEntity<TView>(AssetReferenceGameObject reference, Vector2 position, bool isActive = true)
-    where TView : class, IWorldView
+        public async UniTask<TView> Create<TView>(
+            AssetReferenceGameObject reference,
+            Vector3 position,
+            Quaternion rotation,
+            bool isActive = true)
+                where TView : class, IWorldView
         {
-            EntityView prefab = await _assetProvider.LoadGameObject<EntityView>(reference)
+            MonoBehaviour prefab = await _assetProvider.LoadGameObject<MonoBehaviour>(reference)
                 ?? throw new Exception($"Loading prefab error {reference.RuntimeKey}");
 
             TView component = _diContainer
-                .InstantiatePrefab(prefab, position, Quaternion.identity, null)
+                .InstantiatePrefab(prefab.gameObject, position, rotation, null)
                 .GetComponent<TView>()
                 ?? throw new Exception($"Component {typeof(TView)} not found on prefab {reference.RuntimeKey}");
 
@@ -42,6 +46,21 @@ namespace Assets.CodeCore.Scripts.Game.Services
             return component;
         }
 
+        public async UniTask<TView> Create<TView>(
+            AssetReferenceGameObject reference,
+            Vector3 position,
+            bool isActive = true)
+                   where TView : class, IWorldView
+        {
+            return await Create<TView>(reference, position, Quaternion.identity ,isActive);
+        }
 
+        public async UniTask<TView> Create<TView>(
+            AssetReferenceGameObject reference,
+            bool isActive = true)
+           where TView : class, IWorldView
+        {
+            return await Create<TView>(reference, Vector3.zero, Quaternion.identity, isActive);
+        }
     }
 }

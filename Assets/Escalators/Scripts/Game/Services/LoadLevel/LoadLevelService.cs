@@ -2,6 +2,7 @@
 using Assets.Escalators.Scripts.Game.Services.Entities.Abstractions;
 using Assets.Escalators.Scripts.Game.Services.Entities.PlayerLogic;
 using Assets.Escalators.Scripts.Game.Services.Entities.PlayerLogic.Presenters;
+using Assets.Escalators.Scripts.Game.Services.LoadLevel;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -11,20 +12,21 @@ namespace Assets.CodeCore.Scripts.Game.Services
     {
         private readonly EntityFactory _entityFactory;
         private readonly IPlayerService _playerService;
-        private readonly ICameraService _cameraService;
+        private readonly ILevelBuilder _levelBuilder;
 
         public LoadLevelService(
             EntityFactory entityFactory,
             IPlayerService playerService,
-            ICameraService cameraService)
+            ILevelBuilder levelBuilder)
         {
             _entityFactory = entityFactory;
             _playerService = playerService;
-            _cameraService = cameraService;
+            _levelBuilder = levelBuilder;
         }
 
         public async UniTask LoadLevel(LevelData levelData)
         {
+            await _levelBuilder.Build(levelData.BuildData);
             await LoadPlayer(levelData.PlayerSpawnPoint.Position);
         }
 

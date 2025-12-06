@@ -32,5 +32,10 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.Common.View
 
             transform.DOScale(_defualtScale, _spawnAnimationDuration).SetEase(_spawnEase);
         }
+
+        public void Kill()
+        {
+            gameObject.SetActive(false);
+        }
     }
 }
