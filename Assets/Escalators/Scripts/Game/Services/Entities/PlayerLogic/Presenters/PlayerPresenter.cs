@@ -63,7 +63,7 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.PlayerLogic.Presenter
 
         public void Dispose()
         {
-            _playerPresenter.Dispose();
+            _playerPresenter?.Dispose();
             _disposables.Dispose();
         }
     }

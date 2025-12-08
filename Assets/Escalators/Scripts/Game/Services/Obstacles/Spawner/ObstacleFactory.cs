@@ -1,6 +1,7 @@
 ﻿using Assets.CodeCore.Scripts.Game.Services;
 using Assets.Escalators.Scripts.Game.Services.Obstacles.Model;
 using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 namespace Assets.Escalators.Scripts.Game.Services.Obstacles.Spawner
 {
@@ -17,12 +18,12 @@ namespace Assets.Escalators.Scripts.Game.Services.Obstacles.Spawner
             _worldFactory = worldFactory;
         }
 
-        public async UniTask<ObstacleView> Create(ObstacleSpawnMarker spawnData)
+        public async UniTask<ObstacleView> Create(Vector3 position, Quaternion rotation)
         {
             var prefab = _obstacleDataProvider.Data.Prefab;
 
             return await _worldFactory
-                .Create<ObstacleView>(prefab, spawnData.Position, spawnData.Rotation);
+                .Create<ObstacleView>(prefab, position, rotation);
 
         }
     }

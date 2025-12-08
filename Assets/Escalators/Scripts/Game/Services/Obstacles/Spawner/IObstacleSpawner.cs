@@ -1,7 +1,11 @@
-﻿namespace Assets.Escalators.Scripts.Game.Services.Obstacles.Spawner
+﻿using Assets.Escalators.Scripts.Game.Services.Obstacles.Model;
+using Cysharp.Threading.Tasks;
+using UnityEngine;
+
+namespace Assets.Escalators.Scripts.Game.Services.Obstacles.Spawner
 {
     public interface IObstacleSpawner
     {
-        public void Spawn();
+        public UniTask<ObstacleView> Spawn(Vector3 position, Quaternion rotation);
     }
 }

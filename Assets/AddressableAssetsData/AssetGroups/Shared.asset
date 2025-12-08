@@ -10,28 +10,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Game
+  m_Name: Shared
   m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
-  m_GroupName: Game
-  m_GUID: 9f664167a1aee1546beb6b11012959db
+  m_GroupName: Shared
+  m_GUID: 713f5db1577dca6448fc05c96860981b
   m_SerializeEntries:
-  - m_GUID: 7bc48df77dc74004aaa276f78f73e254
-    m_Address: GameData
+  - m_GUID: 1236f0e943206174ebf6cdceda80985f
+    m_Address: Road
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 83f2052ba21d5144389feaf9d0273968
-    m_Address: Boot
+  - m_GUID: 348f741ad8f238242ac43e8016f95924
+    m_Address: Arena
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 99c9720ab356a0642a771bea13969a05
-    m_Address: Game
+  - m_GUID: 446e7f20d6b8a414eaefbc4d0f074206
+    m_Address: Car
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e41fd33b475c0a946b44a67fa90301be
-    m_Address: ObstacleData
+  - m_GUID: f77ec67de3e6d9341b3e58fcff193bbf
+    m_Address: StartPlace
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -39,5 +39,5 @@ MonoBehaviour:
   m_Settings: {fileID: 11400000, guid: bbb248b41d4ac0b4f963c95abfd7ad72, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: c17314a12a64cad4681e762cc1949535, type: 2}
-    - {fileID: 11400000, guid: 57caa5d2ef729ca48893127dc350d351, type: 2}
+    - {fileID: 11400000, guid: ed0e804d98a2d184694cc6d602a4280f, type: 2}
+    - {fileID: 11400000, guid: d2b782fe376dfe34086542c0f834e237, type: 2}

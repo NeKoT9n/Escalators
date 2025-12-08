@@ -219,7 +219,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4526558069582145736}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 743628ca43db5b54ca5df2dd2ea21619, type: 3}
+  m_Script: {fileID: 11500000, guid: 9bd2d85f5b0528342b47ed83cf34cdfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Escalators.Scripts.Core.View.Arena
   _anchorStart: {fileID: 7576744417664914004}

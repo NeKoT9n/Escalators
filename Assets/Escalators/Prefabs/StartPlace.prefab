@@ -156,7 +156,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2100182474033668858}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1615456e5e3a55d4795bf8f55fdeb7c6, type: 3}
+  m_Script: {fileID: 11500000, guid: 7775994f21b9d304f8e2df0d9b8fbb7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Escalators.Scripts.Core.View.StartPlace
   _anchorStart: {fileID: 4986213815758997283}

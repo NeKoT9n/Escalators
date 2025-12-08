@@ -4,6 +4,7 @@ using Assets.Escalators.Scripts.Core.Services.Update;
 using Assets.Escalators.Scripts.Game.Services.Camera;
 using Assets.Escalators.Scripts.Game.Services.Entities.Abstractions;
 using Assets.Escalators.Scripts.Game.Services.LoadLevel;
+using Assets.Escalators.Scripts.Game.Services.Obstacles.Model;
 using Zenject;
 
 namespace Assets.Escalators.Scripts.Installers
@@ -36,6 +37,10 @@ namespace Assets.Escalators.Scripts.Installers
             Container
                 .Bind<ILevelBuilder>()
                 .To<LevelBuilder>().AsSingle();
+
+            Container
+                .Bind<ObstacleService>()
+                .AsSingle();
         }
 
 

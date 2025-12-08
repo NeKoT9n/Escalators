@@ -1,22 +1,22 @@
-﻿namespace Assets.Escalators.Scripts.Game.Services.Obstacles.Spawner
+﻿using Assets.Escalators.Scripts.Game.Services.Obstacles.Model;
+using Cysharp.Threading.Tasks;
+using UnityEngine;
+
+namespace Assets.Escalators.Scripts.Game.Services.Obstacles.Spawner
 {
 
     public class ObstacleSpawner : IObstacleSpawner
     {
         private readonly ObstacleFactory _obstacleFactory;
-        private readonly ObstacleSpawnMarker _spawnData;
 
-        public ObstacleSpawner(
-            ObstacleFactory obstacleFactory,
-            ObstacleSpawnMarker spawnData)
+        public ObstacleSpawner(ObstacleFactory obstacleFactory)
         {
             _obstacleFactory = obstacleFactory;
-            _spawnData = spawnData;
         }
 
-        public async void Spawn()
+        public async UniTask<ObstacleView> Spawn(Vector3 position, Quaternion rotation)
         {
-            await _obstacleFactory.Create(_spawnData);
+            return await _obstacleFactory.Create(position, rotation);
         }
     }
 }

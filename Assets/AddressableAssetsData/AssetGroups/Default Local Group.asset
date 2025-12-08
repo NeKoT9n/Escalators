@@ -14,22 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
   m_GroupName: Default Local Group
   m_GUID: 0593a3666d766724896131d49984c158
-  m_SerializeEntries:
-  - m_GUID: 1236f0e943206174ebf6cdceda80985f
-    m_Address: Assets/Escalators/Prefabs/Road.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 348f741ad8f238242ac43e8016f95924
-    m_Address: Assets/Escalators/Prefabs/Arena.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f77ec67de3e6d9341b3e58fcff193bbf
-    m_Address: Assets/Escalators/Prefabs/StartPlace.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: bbb248b41d4ac0b4f963c95abfd7ad72, type: 2}
   m_SchemaSet:
