@@ -39,7 +39,8 @@ namespace Assets.Escalators.Scripts.Installers
                 .To<LevelBuilder>().AsSingle();
 
             Container
-                .Bind<ObstacleService>()
+                .Bind<IObstacleService>()
+                .To<ObstacleService>()
                 .AsSingle();
         }
 

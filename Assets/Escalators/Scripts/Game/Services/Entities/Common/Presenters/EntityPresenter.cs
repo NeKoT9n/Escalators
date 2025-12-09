@@ -32,6 +32,9 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.Common.Presenters
                 .Subscribe(_ => _entityView.PlayAppereEffect())
                 .AddTo(_disposables);
 
+            _entity.IsMoving
+                .Subscribe(isMoving => _entityView.SetRunAnimation(isMoving));
+
             _entity.Died
                 .Subscribe(_ => _entityView.Kill());
             

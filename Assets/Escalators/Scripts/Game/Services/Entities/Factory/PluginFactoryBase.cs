@@ -5,7 +5,7 @@ namespace Assets.CodeCore.Scripts.Game.Services.Entitieys.Factory
 {
     public class PluginFactoryBase<TKey, TFactoryPlugin>
     {
-        private Dictionary<TKey, TFactoryPlugin> _factories = new();
+        private readonly Dictionary<TKey, TFactoryPlugin> _factories = new();
 
         protected PluginFactoryBase(IEnumerable<IFactoryPlugin<TKey>> plugins)
         {

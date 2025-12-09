@@ -1,5 +1,4 @@
 ﻿using Assets.CodeCore.Scripts.Game.Services.Entitieys.Data;
-using Assets.Escalators.Scripts.Game.Services.Entities.Abstractions;
 using Assets.Escalators.Scripts.Game.Services.Entities.Common;
 using Assets.Escalators.Scripts.Game.Services.Entities.PlayerLogic.Presenters;
 using UnityEngine;

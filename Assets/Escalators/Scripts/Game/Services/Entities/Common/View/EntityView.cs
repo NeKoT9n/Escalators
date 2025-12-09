@@ -1,4 +1,5 @@
 ﻿using Assets.Escalators.Scripts.Core.Abstractions.View.IWorldView;
+using Assets.Escalators.Scripts.Game.Services.Entities.PlayerLogic.Presenters;
 using DG.Tweening;
 using UnityEngine;
 
@@ -9,8 +10,11 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.Common.View
         [SerializeField] private Vector3 _startSpawnScale = new(0.2f, 0.2f, 0.2f);
         [SerializeField] private float _spawnAnimationDuration = 0.5f;
         [SerializeField] private Ease _spawnEase = Ease.InOutElastic;
+        [SerializeField] private EntityTypeId _entityType = EntityTypeId.None;
+        [SerializeField] private Animator _animator;
 
         public GameObject GameObject => gameObject;
+        public EntityTypeId EntityTypeId => _entityType;
 
         private Vector3 _defualtScale;
 
@@ -31,6 +35,11 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.Common.View
             gameObject.SetActive(true);
 
             transform.DOScale(_defualtScale, _spawnAnimationDuration).SetEase(_spawnEase);
+        }
+
+        public void SetRunAnimation(bool IsRunning)
+        {
+            _animator.SetBool(nameof(IsRunning), IsRunning);
         }
 
         public void Kill()

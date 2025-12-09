@@ -16,7 +16,7 @@ namespace Assets.CodeCore.Scripts.Game.Services
         private readonly EntityFactory _entityFactory;
         private readonly IPlayerService _playerService;
         private readonly ILevelBuilder _levelBuilder;
-        private readonly ObstacleService _obstacleService;
+        private readonly IObstacleService _obstacleService;
         private readonly RoadSpawnerFactory _roadSpawnerFactory;
         private LevelBuildedData _levelBuildedData;
 
@@ -24,7 +24,7 @@ namespace Assets.CodeCore.Scripts.Game.Services
             EntityFactory entityFactory,
             IPlayerService playerService,
             ILevelBuilder levelBuilder,
-            ObstacleService obstacleService,
+            IObstacleService obstacleService,
             RoadSpawnerFactory roadSpawnerFactory)
         {
             _entityFactory = entityFactory;
@@ -37,13 +37,10 @@ namespace Assets.CodeCore.Scripts.Game.Services
         public async UniTask LoadLevel(LevelData levelData)
         {
             _levelBuildedData = await LoadLevelView(levelData);
-       
+            
             await LoadPlayer(_levelBuildedData.StartPlace.Model.PlayerSpawnPosition);
 
-            CreateSpawners(_levelBuildedData);
-
-            _obstacleService.StartSpawnObstacles();
-            
+            CreateSpawners(_levelBuildedData);            
         }
 
         private void CreateSpawners(LevelBuildedData levelBuildedData)

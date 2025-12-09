@@ -15,11 +15,6 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.PlayerLogic.View
             
         }
 
-        public void Kill()
-        {
-            throw new System.NotImplementedException();
-        }
-
         public void OnColided(ObstacleView obstacle)
         {
             _collided.Execute(obstacle);

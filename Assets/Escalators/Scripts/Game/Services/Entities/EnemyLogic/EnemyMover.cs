@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyMover : IMover
 {
-    public void Move(Vector2 input, float deltaTime)
+    public void Move(Entity entity, Vector2 input, float deltaTime)
     {
         throw new System.NotImplementedException();
     }

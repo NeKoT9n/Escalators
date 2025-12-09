@@ -5,6 +5,6 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.Abstractions
 {
     public interface IMover
     {
-        public void Move(Vector2 input, float deltaTime);
+        public void Move(Entity entity, Vector2 input, float deltaTime);
     }
 }

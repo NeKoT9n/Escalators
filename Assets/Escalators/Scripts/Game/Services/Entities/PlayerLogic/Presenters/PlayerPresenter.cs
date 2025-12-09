@@ -59,8 +59,6 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.PlayerLogic.Presenter
             _playerPresenter.Initialize();
         }
 
-
-
         public void Dispose()
         {
             _playerPresenter?.Dispose();

@@ -6,6 +6,7 @@ using Assets.CodeCore.Scripts.Game.Providers.Level;
 using Assets.CodeCore.Scripts.Game.Services;
 using Assets.CodeCore.Scripts.Game.Services.Entitieys.Factory.Model;
 using Assets.CodeCore.Scripts.Game.View;
+using Assets.Escalators.Scripts.Game.Services.Entities.Factory.Model.Brains.Plugins;
 using Assets.Escalators.Scripts.Game.Services.Level.LevelParts.Roads;
 using Assets.Escalators.Scripts.Game.Services.Obstacles.Spawner;
 using Zenject;
@@ -32,15 +33,18 @@ namespace Assets.Escalators.Scripts.Installers
         {
             Container.Bind<WorldFactory>().AsSingle();
             Container.Bind<GameStateFactory>().AsSingle();
-
-            Container.Bind<IBrainFactory>().To<BrainFactory>().AsSingle();
-          
+       
             Container.Bind<EntityFactory>().AsSingle();
             Container.Bind<IEntityFactoryPlugin>().To<PlayerFactoryPlugin>().AsTransient();
+
+            Container.Bind<IBrainFactory>().To<BrainFactory>().AsSingle();
+            Container.Bind<IBrainFactoryPlugin>().To<PlayerBrainFactoryPlugin>().AsTransient();
+
 
             Container.Bind<IObstacleSpawner>().To<ObstacleSpawner>().AsTransient(); 
             Container.Bind<ObstacleFactory>().AsSingle(); 
             Container.BindFactory<Road, RoadSpawner, RoadSpawnerFactory>().AsTransient();
+            
         }
 
         private void BindProviders()

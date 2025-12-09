@@ -33,6 +33,7 @@ namespace Assets.CodeCore.Scripts.Game.Services
             var entity = factory.Create(data, position);
 
             Brain brain = _brainFactory.Create(entity, entity.Type);
+
             entity.SetBrain(brain);
 
             return entity;

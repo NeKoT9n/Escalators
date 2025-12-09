@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace Assets.Escalators.Scripts.Game.Services.Obstacles.Model
 {
-    public class ObstacleService
+    public class ObstacleService : IObstacleService
     {
-        private List<TrackSpawner> _spawners = new();
+        private readonly List<TrackSpawner> _spawners = new();
         public void AddTrackSpawner(TrackSpawner spawners)
         {
             _spawners.Add(spawners);
@@ -19,11 +19,4 @@ namespace Assets.Escalators.Scripts.Game.Services.Obstacles.Model
             }
         }
     }
-
-    public interface ICollidable
-    {
-        public void OnColided(ObstacleView obstacleView);
-    }
-
-
 }

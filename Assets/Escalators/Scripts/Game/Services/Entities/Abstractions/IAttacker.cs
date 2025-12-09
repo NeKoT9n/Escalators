@@ -1,9 +1,10 @@
 ﻿using Assets.Escalators.Scripts.Game.Services.Entities.Common;
+using Cysharp.Threading.Tasks;
 
 namespace Assets.Escalators.Scripts.Game.Services.Entities.Abstractions
 {
     public interface IAttacker
     {
-        public void Tick(Entity model, float deltaTime);
+        public UniTask<bool> Attack(Entity model);
     }
 }

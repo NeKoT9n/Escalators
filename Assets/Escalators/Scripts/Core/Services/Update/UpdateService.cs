@@ -45,7 +45,7 @@ namespace Assets.Escalators.Scripts.Core.Services.Update
                 await UniTask.Yield(PlayerLoopTiming.Update, _cancellToken.Token);
             }
         }
-
+            
         private async UniTask StartFixedUpdateLoop(CancellationToken token)
         {
             while (token.IsCancellationRequested == false)
