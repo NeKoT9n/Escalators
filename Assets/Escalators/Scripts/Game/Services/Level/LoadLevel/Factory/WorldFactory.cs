@@ -1,7 +1,6 @@
 ﻿using Assets.CodeCore.Scripts.Game.Providers.Assets;
 using Assets.CodeCore.Scripts.Game.Providers.Entities;
 using Assets.Escalators.Scripts.Core.Abstractions.View.IWorldView;
-using Assets.Escalators.Scripts.Game.Services.Entities.Common.View;
 using Cysharp.Threading.Tasks;
 using System;
 using UnityEngine;

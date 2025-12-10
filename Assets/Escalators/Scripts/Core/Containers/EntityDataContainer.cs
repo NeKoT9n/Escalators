@@ -5,7 +5,6 @@ using Assets.Escalators.Scripts.Game.Services.Entities.PlayerLogic.Presenters;
 using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Assets.CodeCore.Scripts.Game.Providers.Entities
 {

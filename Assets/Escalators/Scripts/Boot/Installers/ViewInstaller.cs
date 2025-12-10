@@ -1,4 +1,6 @@
 ﻿using Assets.CodeCore.Scripts.Game.Services.Entitieys.Model;
+using Assets.Escalators.Scripts.Game.Services.Chest.Presenters;
+using Assets.Escalators.Scripts.Game.Services.Chest.View.ChestScreen;
 using Assets.Escalators.Scripts.Game.Services.Entities.PlayerLogic.Presenters;
 using Unity.Cinemachine;
 using UnityEngine;
@@ -10,6 +12,7 @@ namespace Assets.Escalators.Scripts.Installers
     {
         [SerializeField] private FixedJoystick _joystick;
         [SerializeField] private CinemachineCamera _camera;
+        [SerializeField] private ChestScreenView _chestScreen;
         public override void InstallBindings()
         {
             BindInstances();
@@ -26,6 +29,12 @@ namespace Assets.Escalators.Scripts.Installers
         private void BindPresenters()
         {
             Container.BindInterfacesTo<PlayerPresenter>().AsSingle();
+
+            Container
+                .BindInterfacesTo<ChestScreenPresenter>()
+                .AsSingle()
+                .WithArguments(_chestScreen)
+                .NonLazy();
         }
 
         private void BindViewFactories()

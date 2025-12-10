@@ -1,4 +1,5 @@
 ﻿using Assets.CodeCore.Scripts.Game.Services;
+using Assets.Escalators.Scripts.Game.Services.Chest.Model.Inventory.Data;
 using Assets.Escalators.Scripts.Game.Services.Obstacles.Model;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -7,11 +8,11 @@ namespace Assets.Escalators.Scripts.Game.Services.Obstacles.Spawner
 {
     public class ObstacleFactory 
     {
-        private readonly ObstacleDataProvider _obstacleDataProvider;
+        private readonly IGameDataProvider<ObstacleData> _obstacleDataProvider;
         private readonly WorldFactory _worldFactory;
 
         public ObstacleFactory(
-            ObstacleDataProvider obstacleDataProvider,
+            IGameDataProvider<ObstacleData> obstacleDataProvider,
             WorldFactory worldFactory)
         {
             _obstacleDataProvider = obstacleDataProvider;

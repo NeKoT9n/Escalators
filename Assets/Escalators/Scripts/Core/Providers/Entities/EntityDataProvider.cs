@@ -8,7 +8,7 @@ using UnityEngine.AddressableAssets;
 namespace Assets.CodeCore.Scripts.Game.Providers.Entities
 {
     [CreateAssetMenu(fileName = "EntityDataProvider", menuName = "Data/Providers/EntityDataProvider")]
-    public class EntityDataProvider : ScriptableObject, IGameDataProvider<EntityData>
+    public class EntityDataProvider : ScriptableObject
     {
         [SerializeField] private List<AssetReferenceT<EntityData>> _references;
 

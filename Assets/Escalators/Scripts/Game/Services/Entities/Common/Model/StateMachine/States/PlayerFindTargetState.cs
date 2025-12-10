@@ -37,7 +37,6 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.Common.Model.StateMac
 
         public void Update()
         {
-            Debug.Log(_inputService.MoveDirection.Value);
 
             if(_inputService.MoveDirection.Value != Vector2.zero)
             {

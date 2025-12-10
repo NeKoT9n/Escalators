@@ -3,6 +3,7 @@ using Assets.CodeCore.Scripts.Game.Infostracture.StateMachine.States.Interfaces;
 using Assets.CodeCore.Scripts.Game.Providers.Level;
 using Assets.CodeCore.Scripts.Game.Services;
 using Assets.CodeCore.Scripts.Game.Services.SceneLoad;
+using Assets.Escalators.Scripts.Game.Services.Chest.Model.Inventory.Data;
 
 namespace Assets.CodeCore.Scripts.Game.Startup.GameStates.States
 {
@@ -10,13 +11,13 @@ namespace Assets.CodeCore.Scripts.Game.Startup.GameStates.States
     {
 
         private readonly ILoadLevelService _loadLevelService;
-        private readonly ILevelDataProvider _levelDataProvider;
+        private readonly IGameDataProvider<LevelData> _levelDataProvider;
         private readonly IStateSwitcher _stateSwitcher;
         private readonly LoadingCurtain _loadingCurtain;
 
         public LoadLevelState(
             ILoadLevelService loadLevelService,
-            ILevelDataProvider levelDataProvider,
+            IGameDataProvider<LevelData> levelDataProvider,
             IStateSwitcher stateSwitcher,
             LoadingCurtain loadingCurtain)
         {
@@ -27,7 +28,7 @@ namespace Assets.CodeCore.Scripts.Game.Startup.GameStates.States
         }
         public async void Enter()
         {
-            LevelData levelData = _levelDataProvider.LevelData;
+            LevelData levelData = _levelDataProvider.Data;
             await _loadLevelService.LoadLevel(levelData);
 
             _stateSwitcher.TrySwitchState<CrossingRoadsState>();

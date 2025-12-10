@@ -5,6 +5,7 @@ using Assets.Escalators.Scripts.Game.Services.Camera;
 using Assets.Escalators.Scripts.Game.Services.Entities.Abstractions;
 using Assets.Escalators.Scripts.Game.Services.LoadLevel;
 using Assets.Escalators.Scripts.Game.Services.Obstacles.Model;
+using Inventory;
 using Zenject;
 
 namespace Assets.Escalators.Scripts.Installers
@@ -41,6 +42,10 @@ namespace Assets.Escalators.Scripts.Installers
             Container
                 .Bind<IObstacleService>()
                 .To<ObstacleService>()
+                .AsSingle();
+
+            Container
+                .BindInterfacesTo<InventoryService>()
                 .AsSingle();
         }
 

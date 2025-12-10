@@ -6,6 +6,8 @@ using Assets.CodeCore.Scripts.Game.Providers.Level;
 using Assets.CodeCore.Scripts.Game.Services;
 using Assets.CodeCore.Scripts.Game.Services.Entitieys.Factory.Model;
 using Assets.CodeCore.Scripts.Game.View;
+using Assets.Escalators.Scripts.Game.Services.Chest.Model.Inventory.Data;
+using Assets.Escalators.Scripts.Game.Services.Chest.View;
 using Assets.Escalators.Scripts.Game.Services.Entities.Factory.Model.Brains.Plugins;
 using Assets.Escalators.Scripts.Game.Services.Level.LevelParts.Roads;
 using Assets.Escalators.Scripts.Game.Services.Obstacles.Spawner;
@@ -40,6 +42,7 @@ namespace Assets.Escalators.Scripts.Installers
             Container.Bind<IBrainFactory>().To<BrainFactory>().AsSingle();
             Container.Bind<IBrainFactoryPlugin>().To<PlayerBrainFactoryPlugin>().AsTransient();
 
+            Container.Bind<InventorySlotViewFactory>().AsSingle();
 
             Container.Bind<IObstacleSpawner>().To<ObstacleSpawner>().AsTransient(); 
             Container.Bind<ObstacleFactory>().AsSingle(); 
@@ -50,9 +53,13 @@ namespace Assets.Escalators.Scripts.Installers
         private void BindProviders()
         {
             Container.BindInterfacesTo<AddressablesAssetProvider>().AsSingle();
+
             Container.BindInterfacesTo<LevelDataProvider>().AsSingle();
+            Container.BindInterfacesTo<ObstacleDataProvider>().AsSingle();
+            Container.BindInterfacesTo<InventoryDataProvider>().AsSingle();
+
             Container.BindInterfacesTo<EntityDataContainer>().AsSingle();
-            Container.BindInterfacesAndSelfTo<ObstacleDataProvider>().AsSingle();
+
         }
 
         private void BindGameStates()
