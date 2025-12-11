@@ -2,6 +2,9 @@
 using Assets.CodeCore.Scripts.Game.Services;
 using Assets.Escalators.Scripts.Core.Services.Update;
 using Assets.Escalators.Scripts.Game.Services.Camera;
+using Assets.Escalators.Scripts.Game.Services.Chest.Model.Inventory;
+using Assets.Escalators.Scripts.Game.Services.Chest.Presenters;
+using Assets.Escalators.Scripts.Game.Services.DragAndDrop;
 using Assets.Escalators.Scripts.Game.Services.Entities.Abstractions;
 using Assets.Escalators.Scripts.Game.Services.LoadLevel;
 using Assets.Escalators.Scripts.Game.Services.Obstacles.Model;
@@ -42,6 +45,19 @@ namespace Assets.Escalators.Scripts.Installers
             Container
                 .Bind<IObstacleService>()
                 .To<ObstacleService>()
+                .AsSingle();
+
+
+            Container
+                .BindInterfacesTo<InventoryRandomKeyFiller>()
+                .AsSingle();
+            
+            Container
+                .BindInterfacesTo<DragService>()
+                .AsSingle();
+            
+            Container
+                .Bind<InventoryDragHandler>()
                 .AsSingle();
 
             Container

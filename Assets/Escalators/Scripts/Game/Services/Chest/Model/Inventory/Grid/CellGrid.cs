@@ -79,5 +79,16 @@ namespace Inventory
 
             return false;
         }
+
+        public bool TryRemoveItem(Vector2Int position)
+        {
+            var slot = _slots[position.x, position.y];
+
+            if (slot.IsEmpty)
+                return false;
+
+            slot.RemoveItem();
+            return true;
+        }
     }
 }

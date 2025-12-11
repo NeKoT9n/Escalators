@@ -4,5 +4,6 @@
     {
         public IReadOnlyInventorySlot[,] Slots { get; }
         public int Size { get; }
+        public bool IsFull();
     }
 }

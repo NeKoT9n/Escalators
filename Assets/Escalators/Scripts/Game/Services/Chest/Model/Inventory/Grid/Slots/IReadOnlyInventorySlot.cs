@@ -7,5 +7,6 @@ namespace Inventory
     {
         public IReadOnlyReactiveProperty<Item> Item { get; }
         public AssetReferenceGameObject Prefab { get; }
+        public bool IsEmpty { get; }
     }
 }

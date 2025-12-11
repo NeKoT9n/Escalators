@@ -32,5 +32,9 @@ namespace Inventory
             return _grid.TryAddItem(item);
         }
 
+        public bool TryRemoveItem(Vector2Int position)
+        {
+            return _grid.TryRemoveItem(position);
+        }
     }
 }

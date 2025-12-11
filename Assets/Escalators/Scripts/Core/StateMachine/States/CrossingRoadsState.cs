@@ -1,4 +1,5 @@
 ﻿using Assets.Escalators.Scripts.Core.Services.Update;
+using Assets.Escalators.Scripts.Game.Services.Chest.Model.Inventory;
 using Assets.Escalators.Scripts.Game.Services.Chest.Model.Inventory.Items.Data;
 using Assets.Escalators.Scripts.Game.Services.Entities.Abstractions;
 using Assets.Escalators.Scripts.Game.Services.Obstacles.Model;
@@ -11,31 +12,28 @@ namespace Assets.CodeCore.Scripts.Game.Startup.GameStates.States
         private readonly IPlayerService _playerService;
         private readonly IUpdateService _updateService;
         private readonly IObstacleService _obstacleService;
-        private readonly IInventoryService _inventoryService;
+        private readonly IInventoryFiller _inventoryFiller;
 
         public CrossingRoadsState(
             IPlayerService playerService,
             IUpdateService updateService,
             IObstacleService obstacleService,
-            IInventoryService inventoryService)
+            IInventoryFiller inventoryFiller)
         {
             _playerService = playerService;
             _updateService = updateService;
             _obstacleService = obstacleService;
-            _inventoryService = inventoryService;
+            _inventoryFiller = inventoryFiller;
         }
 
         public void Enter()
         {
             _updateService.Start();
             _obstacleService.StartSpawnObstacles();
+            _inventoryFiller.Fill();
 
             _playerService.Appear();
 
-            KeyData data = new();
-            Item test = new(data);
-
-            _inventoryService.TryAddItem(test);
         }
     }
 }

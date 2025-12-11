@@ -10,8 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b0eb28c58ebf9914c93662893146b8a0, type: 3}
-  m_Name: KeyData
+  m_Name: Blue_KeyData
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Escalators.Scripts.Game.Services.Chest.Model.Inventory.Items.Data.KeyData
-  _icon: {fileID: 0}
-  _description: 
-  _keyType: 0
+  _icon: {fileID: 841382400, guid: 4658ef050049e5a4b927fb64866f431b, type: 3}
+  _description: 2
+  _prefab:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0
+  _keyType: 2

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0461cdcccd14da543b0df2d324c70c53, type: 3}
   m_Name: InventoryData
   m_EditorClassIdentifier: Assembly-CSharp::Inventory.InventoryData
-  _size: 9
+  _size: 6
   _slotData: {fileID: 11400000, guid: 58b465c943cba084b9ff37df29f66140, type: 2}

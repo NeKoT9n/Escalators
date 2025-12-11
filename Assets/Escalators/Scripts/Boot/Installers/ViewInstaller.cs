@@ -24,6 +24,7 @@ namespace Assets.Escalators.Scripts.Installers
         {
             Container.Bind<Joystick>().FromInstance(_joystick).AsSingle();
             Container.Bind<CinemachineCamera>().FromInstance(_camera).AsSingle();
+            Container.Bind<ChestScreenView>().FromInstance(_chestScreen).AsSingle();
         }
 
         private void BindPresenters()
@@ -33,7 +34,6 @@ namespace Assets.Escalators.Scripts.Installers
             Container
                 .BindInterfacesTo<ChestScreenPresenter>()
                 .AsSingle()
-                .WithArguments(_chestScreen)
                 .NonLazy();
         }
 
