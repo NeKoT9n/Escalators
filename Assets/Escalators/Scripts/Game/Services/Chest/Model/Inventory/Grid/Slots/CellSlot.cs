@@ -1,5 +1,6 @@
 ﻿using Assets.Escalators.Scripts.Game.Services.Chest.Model.Inventory.Data;
 using UniRx;
+using UnityEngine;
 using UnityEngine.AddressableAssets;
 
 namespace Inventory
@@ -10,13 +11,15 @@ namespace Inventory
         public AssetReferenceGameObject Prefab => _data.Prefab;
         public bool IsEmpty => _item.Value == null;
 
+        public Vector2Int Position {get; private set;}
 
         private readonly ReactiveProperty<Item> _item = new();
         private readonly SlotData _data;
 
-        public CellSlot(SlotData data)
+        public CellSlot(SlotData data, Vector2Int position)
         {
             _data = data;
+            Position = position;
         }
 
         public void SetItem(Item item)

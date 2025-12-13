@@ -7,6 +7,7 @@ using Assets.CodeCore.Scripts.Game.Services;
 using Assets.CodeCore.Scripts.Game.Services.Entitieys.Factory.Model;
 using Assets.CodeCore.Scripts.Game.View;
 using Assets.Escalators.Scripts.Core.Providers.Inventories;
+using Assets.Escalators.Scripts.Core.Utils.PoolObjects;
 using Assets.Escalators.Scripts.Game.Services.Chest.Model.Inventory.Data;
 using Assets.Escalators.Scripts.Game.Services.Chest.Presenters;
 using Assets.Escalators.Scripts.Game.Services.Chest.Presenters.Inventory;
@@ -14,6 +15,7 @@ using Assets.Escalators.Scripts.Game.Services.Chest.Presenters.Inventory.Slots;
 using Assets.Escalators.Scripts.Game.Services.Chest.View;
 using Assets.Escalators.Scripts.Game.Services.Entities.Factory.Model.Brains.Plugins;
 using Assets.Escalators.Scripts.Game.Services.Level.LevelParts.Roads;
+using Assets.Escalators.Scripts.Game.Services.Obstacles.Model;
 using Assets.Escalators.Scripts.Game.Services.Obstacles.Spawner;
 using Inventory;
 using Zenject;
@@ -49,7 +51,8 @@ namespace Assets.Escalators.Scripts.Installers
 
             Container.Bind<InventorySlotViewFactory>().AsSingle();
 
-            Container.Bind<IObstacleSpawner>().To<ObstacleSpawner>().AsTransient(); 
+            Container.Bind<IObjectPool<ObstacleView>>().To<ObstacleObjectPool>().AsSingle();
+            Container.Bind<IObstacleSpawner>().To<ObstacleSpawner>().AsSingle(); 
             Container.Bind<ObstacleFactory>().AsSingle(); 
 
             Container

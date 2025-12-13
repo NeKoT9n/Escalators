@@ -19,7 +19,9 @@ namespace Inventory
         public void Initialize()
         {
             var data = _dataProvider.Data;
-            _grid = new(data);
+            var slotAcceptRule = new DefaultSlotRule();
+
+            _grid = new(data, slotAcceptRule);
         }
 
         public bool TryAddItem(Vector2Int cell, Item item)

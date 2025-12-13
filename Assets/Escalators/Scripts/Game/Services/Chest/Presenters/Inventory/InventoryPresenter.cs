@@ -6,6 +6,8 @@ using UniRx;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Assets.Escalators.Scripts.Game.Services.DragAndDrop;
+
 
 namespace Assets.Escalators.Scripts.Game.Services.Chest.Presenters.Inventory
 {
@@ -16,6 +18,7 @@ namespace Assets.Escalators.Scripts.Game.Services.Chest.Presenters.Inventory
 
         private readonly InventorySlotViewFactory _slotViewFactory;
         private readonly InventorySlotPresenterFactory _slotPresenterFactory;
+        private readonly IDragService _dragService;
         private readonly List<SlotPresenter> _slots = new();
 
         public ReactiveCommand<Vector2Int> RemoveCommand = new();
@@ -27,12 +30,14 @@ namespace Assets.Escalators.Scripts.Game.Services.Chest.Presenters.Inventory
             IReadOnlyInventoryGrid cellGrid, 
             InventoryView inventoryView,
             InventorySlotViewFactory slotViewFactory,
-            InventorySlotPresenterFactory slotPresenterFactory)
+            InventorySlotPresenterFactory slotPresenterFactory,
+            IDragService dragService)
         {
             _cellGrid = cellGrid;
             _inventoryView = inventoryView;
             _slotViewFactory = slotViewFactory;
             _slotPresenterFactory = slotPresenterFactory;
+            _dragService = dragService;
         }
 
         public void Initialize()
@@ -58,39 +63,54 @@ namespace Assets.Escalators.Scripts.Game.Services.Chest.Presenters.Inventory
         {
             presenter.Initialize();
 
-            presenter.RemoveCommand
-                .Subscribe(sender => OnRemoveCommand(sender))
+            presenter.DragBegining
+                .Subscribe(_ => OnDragBegin(presenter))
+                .AddTo(_disposables);
+            
+            presenter.DragEnded
+                .Subscribe(_ => OnEndDrag())
                 .AddTo(_disposables);
 
-            presenter.AddCommand
-                .Subscribe(addCommand => OnAddCommand(addCommand))
+            presenter.Droped
+                .Subscribe(eventData => OnDrop(presenter))
                 .AddTo(_disposables);
         }
 
-        private void OnAddCommand(ItemAddCommand addCommand)
+        private void OnDragBegin(SlotPresenter presenter)
         {
-            int index = _slots.IndexOf(addCommand.Sender);
-            var position = GetPositionByIndex(index);
+            var position = presenter.Position;
+            var item = _cellGrid.GetItem(position);
 
-            addCommand.Position = position;
+            _dragService.StartDrag(item, this, position);
 
-            AddCommand.Execute(addCommand);
+        }
+        private void OnEndDrag()
+        {        
+            _dragService.EndDrag();
         }
 
-        private void OnRemoveCommand(SlotPresenter sender)
+        private void OnDrop(SlotPresenter presenter)
         {
-            int index = _slots.IndexOf(sender);
-            var position = GetPositionByIndex(index);
+            var droppedItemInfo = _dragService.Peek();
+            var item = droppedItemInfo.item;
 
-            RemoveCommand.Execute(position);
-        }
+            if (item != null)
+            {
+                var sourcePresenter = droppedItemInfo.sourcePresenter;
+                var sourcePosition = droppedItemInfo.sourcePosition;
 
-        private Vector2Int GetPositionByIndex(int index)
-        {
-            int i = index / _cellGrid.Size;
-            int j = index % _cellGrid.Size;
+                if (_cellGrid.CanAdd(presenter.Position, item) == false)
+                    return;
 
-            return new(i, j);
+                sourcePresenter.RemoveCommand
+                    .Execute(sourcePosition);
+
+                AddCommand.Execute(new()
+                {
+                    Item = item,
+                    Position = presenter.Position,
+                });  
+            }
         }
 
         public void Dispose()

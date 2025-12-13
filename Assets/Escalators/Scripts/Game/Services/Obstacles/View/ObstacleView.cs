@@ -32,6 +32,11 @@ namespace Assets.Escalators.Scripts.Game.Services.Obstacles.Model
             transform.position += _speed * Time.deltaTime * transform.forward;
         }
 
+        public void OnKillZoneEnter()
+        {
+            gameObject.SetActive(false);
+        }
+
         private void OnDestroy()
         {
             _disposable?.Dispose();

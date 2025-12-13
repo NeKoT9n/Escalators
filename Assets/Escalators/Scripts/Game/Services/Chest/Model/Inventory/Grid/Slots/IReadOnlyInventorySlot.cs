@@ -1,4 +1,5 @@
 ﻿using UniRx;
+using UnityEngine;
 using UnityEngine.AddressableAssets;
 
 namespace Inventory
@@ -8,5 +9,6 @@ namespace Inventory
         public IReadOnlyReactiveProperty<Item> Item { get; }
         public AssetReferenceGameObject Prefab { get; }
         public bool IsEmpty { get; }
+        Vector2Int Position { get; }
     }
 }

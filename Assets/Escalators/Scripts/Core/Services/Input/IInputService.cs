@@ -6,5 +6,6 @@ namespace Assets._Shape_Escape.Scripts.Scenes.Game.Infostracture
     public interface IInputService
     {
         public IReadOnlyReactiveProperty<Vector2> MoveDirection { get; }
+        public Vector2 MousePosition { get; }
     }
 }

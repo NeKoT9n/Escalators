@@ -6,27 +6,23 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 namespace Inventory
 {
-    public class SlotView : MonoBehaviour, IWorldView, IBeginDragHandler, IEndDragHandler, IDragHandler
+    public class SlotView : MonoBehaviour, IWorldView, IBeginDragHandler, IEndDragHandler, IDragHandler, IDropHandler
     {
         [SerializeField] private Image _image;
         [SerializeField] private TextMeshProUGUI _description;
 
         public ReactiveCommand<PointerEventData> DragBegining = new();
         public ReactiveCommand<PointerEventData> DragEnded = new();
-        public ReactiveCommand DragHandled = new();
+        public ReactiveCommand<PointerEventData> Droped = new();
 
         public GameObject GameObject => gameObject;
-        public bool IsEmpty => _image.sprite == null;
 
         public void SetIcon(Sprite icon)
-        {
-            _image.sprite = icon;
-        }
+            => _image.sprite = icon;
+
 
         public void SetDescription(string text)
-        {
-            _description.text = text;
-        }
+            => _description.text = text;
 
         public void Clear()
         {
@@ -35,22 +31,16 @@ namespace Inventory
         }
 
         public void OnBeginDrag(PointerEventData eventData)
-        {
-            Debug.Log("Drag Started");
-            DragBegining.Execute(eventData);
-        }
+            => DragBegining.Execute(eventData);
+
 
         public void OnEndDrag(PointerEventData eventData)
-        {
-            Debug.Log("Drag Ended");
-            DragEnded.Execute(eventData);
-        }
+            => DragEnded.Execute(eventData);
 
-        public void OnDragHandled()
+        public void OnDrop(PointerEventData eventData)
         {
-            DragHandled.Execute();
+            Droped.Execute(eventData);
         }
-
         public void OnDrag(PointerEventData eventData) { }
     }
 }

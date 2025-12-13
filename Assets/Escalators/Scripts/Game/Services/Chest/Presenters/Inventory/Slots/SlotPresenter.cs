@@ -1,5 +1,4 @@
 ﻿using Assets.CodeCore.Scripts.Game.Infostracture;
-using Assets.Escalators.Scripts.Game.Services.DragAndDrop;
 using Inventory;
 using UniRx;
 using UnityEngine;
@@ -11,23 +10,22 @@ namespace Assets.Escalators.Scripts.Game.Services.Chest.Presenters
     {
         private readonly IReadOnlyInventorySlot _cellSlot;
         private readonly SlotView _slotView;
-        private readonly IDragService _dragService;
-        private readonly InventoryDragHandler _inventoryDragHandler;
         private readonly CompositeDisposable _disposables = new();
 
-        public ReactiveCommand<SlotPresenter> RemoveCommand = new();
-        public ReactiveCommand<ItemAddCommand> AddCommand = new();
+        public Vector2Int Position => _cellSlot.Position;
+
+        public ReactiveCommand<PointerEventData> DragBegining => _slotView.DragBegining;
+        public ReactiveCommand<PointerEventData> DragEnded => _slotView.DragEnded;
+        public ReactiveCommand<PointerEventData> Droped => _slotView.Droped;
+
+        public SlotView SlotView => _slotView;
 
         public SlotPresenter(
             IReadOnlyInventorySlot cellSlot,
-            SlotView slotView,
-            IDragService dragService,
-            InventoryDragHandler inventoryDragHandler)
+            SlotView slotView)
         {
             _cellSlot = cellSlot;
-            _slotView = slotView;
-            _dragService = dragService;
-            _inventoryDragHandler = inventoryDragHandler;
+            _slotView = slotView;         
         }
 
         public void Initialize()
@@ -35,57 +33,8 @@ namespace Assets.Escalators.Scripts.Game.Services.Chest.Presenters
             _cellSlot.Item
                 .Subscribe(item => OnItemChanched(item))
                 .AddTo(_disposables);
-
-            _slotView.DragBegining
-                .Subscribe(eventData => OnDragBegining(eventData))
-                .AddTo(_disposables);
-
-            _slotView.DragEnded
-                .Subscribe(eventData => OnDragEnded(eventData))
-                .AddTo(_disposables);
-
-            _slotView.DragHandled
-                .Subscribe(_ => TryAddItem())
-                .AddTo(_disposables);
-
         }
-
-        private void TryAddItem()
-        {
-            var item = _dragService.EndDrag();
-
-            if (item == null)
-                return;
-
-            AddCommand.Execute(new ItemAddCommand()
-            {
-                Item = item,
-                Sender = this,
-                Position = Vector2Int.zero
-            });
-        }
-
-        private void OnDragBegining(PointerEventData _)
-        {
-            if (_cellSlot.IsEmpty)
-                return;
-
-            _dragService.StartDrag(_cellSlot.Item.Value);
-        }
-
-        private void OnDragEnded(PointerEventData eventData)
-        {
-            var result = _inventoryDragHandler.Handle(eventData);
-
-            if (result == false)
-            {
-                _dragService.EndDrag();
-                return;
-            }
-
-            RemoveCommand.Execute(this);
-        }
-
+    
         private void OnItemChanched(Item item)
         {
             if (item == null)
@@ -102,22 +51,14 @@ namespace Assets.Escalators.Scripts.Game.Services.Chest.Presenters
 
     public class InventoryDragHandler
     {
-        public bool Handle(PointerEventData eventData)
+        public SlotView GetTargetView(PointerEventData eventData)
         {
             var gameObject = eventData.pointerCurrentRaycast.gameObject;
 
-            if (gameObject == null)
-                return false;
+            if (gameObject != null && gameObject.TryGetComponent(out SlotView target))
+                return target;
 
-            if(gameObject.TryGetComponent(out SlotView target) == false)
-                return false;
-
-            if(target.IsEmpty == false)
-                return false;
-
-            target.OnDragHandled();
-
-            return true;
+            return null;
         }
     }
 

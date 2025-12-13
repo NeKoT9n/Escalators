@@ -9,8 +9,9 @@ namespace Inventory
 
         private readonly int _size; 
         private readonly CellSlot[,] _slots;
+        private readonly IItemPlacementRule _acceptRule;
 
-        public CellGrid(InventoryData data)
+        public CellGrid(InventoryData data, IItemPlacementRule acceptRule)
         {
             _size = data.Size;
 
@@ -20,9 +21,11 @@ namespace Inventory
             {
                 for(int j = 0; j < _size; j++)
                 {
-                    _slots[i, j] = new CellSlot(data.SlotData);
+                    _slots[i, j] = new CellSlot(data.SlotData, new Vector2Int(i, j));
                 }
             }
+
+            _acceptRule = acceptRule;
         }
 
         public bool IsFull()
@@ -41,6 +44,9 @@ namespace Inventory
             if(IsFull() == true)
                 return false;
 
+            if (CanAdd(item) == false)
+                return false;
+
             var cell = _slots[index.x, index.y];
 
             if (cell.IsEmpty == false)
@@ -53,6 +59,9 @@ namespace Inventory
 
         public bool TryAddItem(Item item)
         {
+            if(CanAdd(item) == false)
+                return false;
+
             if (TryGetFirstEmptySlot(out var cell) == false)
                 return false;
 
@@ -89,6 +98,55 @@ namespace Inventory
 
             slot.RemoveItem();
             return true;
+        }
+
+        public Item GetItem(Vector2Int position)
+        {
+            return _slots[position.x, position.y].Item.Value;
+        }
+
+        public bool CanAdd(Vector2Int position, Item item)
+        {
+            if (_slots[position.x, position.y].IsEmpty == false)
+                return false;
+
+            if (_acceptRule.CanAccept(item) == false)
+                return false;
+
+            return true;
+        }
+
+        public bool CanAdd(Item item)
+        {
+            return _acceptRule.CanAccept(item);
+        }
+    }
+
+    public interface IItemPlacementRule
+    {
+        public bool CanAccept(Item item);
+    }
+
+    public class DefaultSlotRule : IItemPlacementRule
+    {
+        public bool CanAccept(Item item)
+        {
+            return true;
+        }
+    }
+
+    public class KeyTypeSlotRule : IItemPlacementRule
+    {
+        private readonly KeyTypeId _requiredKeyType;
+
+        public KeyTypeSlotRule(KeyTypeId requiredKeyType)
+        {
+            _requiredKeyType = requiredKeyType;
+        }
+
+        public bool CanAccept(Item item)
+        {
+            return item is Key key && key.Type == _requiredKeyType;
         }
     }
 }
