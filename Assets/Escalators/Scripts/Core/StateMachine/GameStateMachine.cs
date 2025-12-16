@@ -26,10 +26,15 @@ namespace Assets.CodeCore.Scripts.Game.Infostracture.StateMachine
         {
             IState state = GetState<TState>();
 
+            return TrySwitchState(state);
+        }
+
+        public bool TrySwitchState(IState state)
+        {
             if (_currentState == state)
                 return false;
 
-            if(TryGetExitable(_currentState, out var exitableState))
+            if (TryGetExitable(_currentState, out var exitableState))
                 exitableState.Exit();
 
             _currentState = state;

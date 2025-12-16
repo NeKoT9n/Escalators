@@ -1,11 +1,13 @@
 ﻿using Assets.Escalators.Scripts.Core.Abstractions.View.IWorldView;
+using Assets.Escalators.Scripts.Game.Services.Entities.Abstractions;
 using Assets.Escalators.Scripts.Game.Services.Entities.PlayerLogic.Presenters;
 using DG.Tweening;
+using UniRx;
 using UnityEngine;
 
 namespace Assets.Escalators.Scripts.Game.Services.Entities.Common.View
 {
-    public class EntityView : MonoBehaviour, IWorldView
+    public class EntityView : MonoBehaviour, IWorldView, IDamagetable
     {
         [SerializeField] private Vector3 _startSpawnScale = new(0.2f, 0.2f, 0.2f);
         [SerializeField] private float _spawnAnimationDuration = 0.5f;
@@ -13,6 +15,7 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.Common.View
         [SerializeField] private EntityTypeId _entityType = EntityTypeId.None;
         [SerializeField] private Animator _animator;
 
+        public ReactiveCommand<int> Damageted {  get; private set; }
         public GameObject GameObject => gameObject;
         public EntityTypeId EntityTypeId => _entityType;
 
@@ -45,6 +48,11 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.Common.View
         public void Kill()
         {
             gameObject.SetActive(false);
+        }
+
+        public void TakeDamage(int damage)
+        {
+            Damageted.Execute(damage);
         }
     }
 }

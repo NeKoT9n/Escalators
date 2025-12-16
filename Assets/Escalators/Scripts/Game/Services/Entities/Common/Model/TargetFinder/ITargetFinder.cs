@@ -19,9 +19,9 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.Common.Model.TargetFi
         readonly Collider[] _results = new Collider[10];
         private readonly ReactiveProperty<EntityView> _target = new();
 
-        public TargetFinder(EntityTypeId enemyType)
+        public TargetFinder(EntityTypeId friendlyType)
         {
-            _friendlyType = enemyType;
+            _friendlyType = friendlyType;
         }
 
 

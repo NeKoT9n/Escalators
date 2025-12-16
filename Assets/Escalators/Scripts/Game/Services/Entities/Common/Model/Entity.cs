@@ -15,6 +15,7 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.Common
         public ReactiveProperty<float> CurrentHealth { get; } = new();
         public ReactiveCommand Died { get; } = new();
         public ReactiveCommand Appeared { get; } = new();
+        public ReactiveCommand Attack { get; } = new();
         public ReactiveProperty<bool> IsMoving { get; } = new(false);
 
         public ReactiveProperty<Brain> Brain = new();

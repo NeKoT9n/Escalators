@@ -5,7 +5,7 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.Common.Model
 {
     public class EmptyMover : IMover
     {
-        public void Move(Entity entity, Vector2 input, float deltaTime)
+        public void Move(Entity entity, float deltaTime)
         {
             return;
         }

@@ -11,47 +11,18 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.PlayerLogic
 {
     public class PlayerBrain : Brain, IInitializable
     {
-        private readonly PlayerStateMachine _playerStateMachine = new();
+        private readonly PlayerStateMachine _playerStateMachine;
 
-        private readonly PlayerMoveState _moveState;
-        private readonly PlayerFindTargetState _findTargetState;
-        private readonly EntityAttackState _attackState;
-        private readonly IInputService _inputService;
         private readonly CompositeDisposable _disposables = new();
 
-        public PlayerBrain(
-            PlayerMoveState playerMoveState,
-            PlayerFindTargetState playerFindTargetState,
-            EntityAttackState entityAttackState)
+        public PlayerBrain(PlayerStateMachine playerStateMachine)
         {
-
-            _moveState = playerMoveState;
-            _findTargetState = playerFindTargetState;
-            _attackState = entityAttackState;
+            _playerStateMachine = playerStateMachine;
         }
 
         public void Initialize()
-        {
-            _playerStateMachine.Initialize(new List<IState>()
-            {
-                _findTargetState,
-                _moveState,
-                _attackState
-            });
-
-            _moveState.Stoped
-                .Subscribe(_ => _playerStateMachine.TrySwitchState<PlayerFindTargetState>())
-                .AddTo(_disposables);
-
-            _findTargetState.Finded
-                .Subscribe(_ => _playerStateMachine.TrySwitchState<EntityAttackState>())
-                .AddTo(_disposables);
-
-            _findTargetState.Moved
-                .Subscribe(_ => _playerStateMachine.TrySwitchState<PlayerMoveState>())
-                .AddTo(_disposables);
-
-            _playerStateMachine.TrySwitchState<PlayerFindTargetState>();
+        {          
+            _playerStateMachine.TrySwitchState<EntityFindTargetState>();
         }
 
         public override void Update() 

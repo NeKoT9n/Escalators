@@ -1,5 +1,4 @@
-﻿using Assets.CodeCore.Scripts.Game.Infostracture;
-using Assets.CodeCore.Scripts.Game.Startup.GameStates;
+﻿using Assets.CodeCore.Scripts.Game.Startup.GameStates;
 using Assets.Escalators.Scripts.Game.Services.Entities.Abstractions;
 using Assets.Escalators.Scripts.Game.Services.Entities.Common.Model.TargetFinder;
 using System;
@@ -24,16 +23,13 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.Common.Model.StateMac
             _model = model;
         }
 
-        public async void Enter()
+        public void Enter()
         {
             var target = _targetFinder.Target;
 
-            if(target == null)
-            {
-                _fineshed.OnNext(false);
-            }
+            _attacker.TryAttack(_model, target.Value);
 
-            var result = await _attacker.Attack(_model);
+            _fineshed.OnNext(false);
         }
 
     }

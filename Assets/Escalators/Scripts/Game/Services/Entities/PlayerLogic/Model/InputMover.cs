@@ -1,18 +1,19 @@
+using Assets._Shape_Escape.Scripts.Scenes.Game.Infostracture;
 using Assets.Escalators.Scripts.Game.Services.Entities.Abstractions;
 using Assets.Escalators.Scripts.Game.Services.Entities.Common;
 using UnityEngine;
 
-public class DirectionMover : IMover
+public class InputMover : IMover
 {
+    private readonly IInputService _inputService;
 
-    public void Move(Entity entity, Vector2 direction, float deltaTime)
+    public InputMover(IInputService inputService)
     {
-
-        if (direction.sqrMagnitude < 0.01f)
-        {
-            entity.IsMoving.Value = false;
-            return;
-        }
+        _inputService = inputService;
+    }
+    public void Move(Entity entity, float deltaTime)
+    {
+        var direction = _inputService.MoveDirection.Value;
 
         entity.IsMoving.Value = true;
 
