@@ -1,12 +1,13 @@
 ﻿using Assets.CodeCore.Scripts.Game.Infostracture;
 using Assets.Escalators.Scripts.Core.StateMachine.States.Interfaces;
 using Cysharp.Threading.Tasks;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 
 namespace Assets.Escalators.Scripts.Core.Services.Update
 {
-    public class UpdateService : IUpdateService
+    public class UpdateService : IUpdateService, IDisposable
     {
         private readonly IEnumerable<IUpdatable> _updatables;
         private readonly IEnumerable<IFixedUpdatable> _fixedUpdatables;
@@ -32,7 +33,6 @@ namespace Assets.Escalators.Scripts.Core.Services.Update
             StartFixedUpdateLoop(_cancellToken.Token).Forget();
             StartLateUpdateLoop(_cancellToken.Token).Forget();
         }
-
         private async UniTask StartUpdateLoop(CancellationToken token)
         {
 
@@ -74,11 +74,10 @@ namespace Assets.Escalators.Scripts.Core.Services.Update
         {
             _cancellToken.Cancel();
         }
-    }
 
-    public interface IUpdateService
-    {
-        public void Start();
-        public void Stop();
+        public void Dispose()
+        {
+            Stop();
+        }
     }
 }

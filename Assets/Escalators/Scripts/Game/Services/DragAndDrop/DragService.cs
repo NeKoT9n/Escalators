@@ -1,59 +1,56 @@
 ﻿using Assets._Shape_Escape.Scripts.Scenes.Game.Infostracture;
 using Assets.CodeCore.Scripts.Game.Infostracture;
-using Assets.Escalators.Scripts.Game.Services.Chest.Presenters.Inventory;
+using Assets.Escalators.Scripts.Game.Services.Chest.Model.Inventory.Data;
 using Assets.Escalators.Scripts.Game.Services.Chest.View.ChestScreen;
 using Inventory;
 using UnityEngine;
-
 
 namespace Assets.Escalators.Scripts.Game.Services.DragAndDrop
 {
     public class DragService : IDragService, IUpdatable
     {
-        private readonly ItemView _dragItemView;
-        private readonly IInputService _inputService;
-        private Item _current = null;
-        private InventoryPresenter _sourcePresenter = null;
-        private Vector2Int _sourcePosition = Vector2Int.zero;
-
         public bool IsDragging { get; private set; }
+
+        private readonly IInputService _inputService;
+
+        private readonly ItemView _dragItemView;
+
+        private DragInformation? _current;
+
         public DragService(ChestScreenView chestScreenView, IInputService inputService)
         {
-            var inventory = chestScreenView.InventoryView;
-            _dragItemView = inventory.DragItemView;
+            _dragItemView = chestScreenView.DragItemView;
 
             _dragItemView.Hide();
             _inputService = inputService;
         }
 
-
-        public void StartDrag(Item item, InventoryPresenter inventory, Vector2Int slotPosition)
+        public void StartDrag(DragInformation dragInformation)
         {
-            if (item == null)
+            if (dragInformation.IsEmpty)
                 return;
 
             IsDragging = true;
-            _current = item;
-            _sourcePresenter = inventory;
-            _sourcePosition = slotPosition;
 
-            ShowView(item);
+            _current = dragInformation;
+
+            ShowView(_current?.Item);
         }
         public void Update()
         {
             _dragItemView.transform.position = _inputService.MousePosition;
         }
 
-        public (Item item, InventoryPresenter sourcePresenter, Vector2Int sourcePosition) Peek()
+        public DragInformation? Peek()
         {
-            return (_current, _sourcePresenter, _sourcePosition);
+            return _current;
         }
 
         public void EndDrag()
         {
             IsDragging = false;
             _current = null;
-            _sourcePresenter = null;
+
             _dragItemView.Hide();
         }
 
@@ -62,7 +59,21 @@ namespace Assets.Escalators.Scripts.Game.Services.DragAndDrop
             _dragItemView.SetIcon(item.Icon);
             _dragItemView.Show();
         }
+    }
 
+    public struct DragInformation
+    {
+        public InventoryTypeId InventoryId;
+        public Item Item;
+        public Vector2Int SlotPosition;
 
+        public DragInformation(InventoryTypeId inventoryId, Item item, Vector2Int slotPosition)
+        {
+            InventoryId = inventoryId;
+            Item = item;
+            SlotPosition = slotPosition;
+        }
+
+        public readonly bool IsEmpty => Item == null;
     }
 }

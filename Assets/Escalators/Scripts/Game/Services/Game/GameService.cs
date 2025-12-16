@@ -45,6 +45,7 @@ namespace Assets.CodeCore.Scripts.Game.Services.Game
         {
             _stateSwitcher.TrySwitchState<WinState>();
         }
+
         public void Dispose()
         {
             _disposables.Dispose();

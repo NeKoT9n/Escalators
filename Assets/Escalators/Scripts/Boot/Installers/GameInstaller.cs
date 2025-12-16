@@ -5,9 +5,11 @@ using Assets.CodeCore.Scripts.Game.Providers.Entities;
 using Assets.CodeCore.Scripts.Game.Providers.Level;
 using Assets.CodeCore.Scripts.Game.Services;
 using Assets.CodeCore.Scripts.Game.Services.Entitieys.Factory.Model;
+using Assets.CodeCore.Scripts.Game.Services.Game;
 using Assets.CodeCore.Scripts.Game.View;
 using Assets.Escalators.Scripts.Core.Providers.Inventories;
 using Assets.Escalators.Scripts.Core.Utils.PoolObjects;
+using Assets.Escalators.Scripts.Game.Services.Chest.Model.Chests.Data;
 using Assets.Escalators.Scripts.Game.Services.Chest.Model.Inventory.Data;
 using Assets.Escalators.Scripts.Game.Services.Chest.Presenters;
 using Assets.Escalators.Scripts.Game.Services.Chest.Presenters.Inventory;
@@ -30,12 +32,14 @@ namespace Assets.Escalators.Scripts.Installers
             BindFactories();
             BindProviders();
             BindConditions();
+
+            Container.BindInterfacesTo<GameService>().AsSingle();
         }
 
         private void BindConditions()
         {
-            Container.Bind<WinCondition>().AsSingle();
-            Container.Bind<LoseCondition>().AsSingle();
+            Container.BindInterfacesAndSelfTo<WinCondition>().AsSingle();
+            Container.BindInterfacesAndSelfTo<LoseCondition>().AsSingle();
         }
 
         private void BindFactories()
@@ -80,8 +84,9 @@ namespace Assets.Escalators.Scripts.Installers
             Container.BindInterfacesTo<AddressablesAssetProvider>().AsSingle();
 
             Container.BindInterfacesTo<LevelDataProvider>().AsSingle();
+            Container.BindInterfacesTo<ChestDataProvider>().AsSingle();
             Container.BindInterfacesTo<ObstacleDataProvider>().AsSingle();
-            Container.BindInterfacesTo<InventoryDataProvider>().AsSingle();
+            Container.BindInterfacesTo<InventoryDataListProvider>().AsSingle();
             Container.BindInterfacesTo<KeyDataListProvider>().AsSingle();
 
             Container.BindInterfacesTo<EntityDataContainer>().AsSingle();

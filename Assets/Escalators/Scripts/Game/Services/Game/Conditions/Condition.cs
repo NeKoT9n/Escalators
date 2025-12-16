@@ -4,19 +4,12 @@ using UniRx;
 
 namespace Assets.CodeCore.Scripts.Game.View
 {
-    public abstract class Condition : IInitializable, IDisposable
+    public abstract class Condition : IInitializable
     {
-        protected readonly Subject<Unit> _complited = new();
-        protected readonly CompositeDisposable _disposables = new ();
-
-        public IObservable<Unit> Complited => _complited;
+        public ReactiveCommand<Unit> Complited { get; private set; } = new();
 
         public abstract void Initialize();
 
-        public virtual void Dispose()
-        {
-            _disposables?.Dispose();    
-        }
     }
 
 

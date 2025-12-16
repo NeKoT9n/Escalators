@@ -61,12 +61,4 @@ namespace Assets.Escalators.Scripts.Game.Services.Chest.Presenters
             return null;
         }
     }
-
-    public struct ItemAddCommand
-    {
-        public Item Item;
-        public SlotPresenter Sender;
-        public Vector2Int Position;
-
-    }
 }

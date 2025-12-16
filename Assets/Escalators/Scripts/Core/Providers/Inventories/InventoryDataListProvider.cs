@@ -1,14 +1,13 @@
 ﻿using Assets.CodeCore.Scripts.Game.Providers.Assets;
 using Assets.CodeCore.Scripts.Game.Providers.Level;
-using Inventory;
 
 namespace Assets.Escalators.Scripts.Game.Services.Chest.Model.Inventory.Data
 {
-    public class InventoryDataProvider : GameDataProvider<InventoryData>
+    public class InventoryDataListProvider : GameDataProvider<InventoryDataList>
     {
-        public InventoryDataProvider(IAssetProvider assetProvider) 
+        public InventoryDataListProvider(IAssetProvider assetProvider) 
             : base(assetProvider) { }
 
-        protected override string AssetName => nameof(InventoryData);
+        protected override string AssetName => nameof(InventoryDataList);
     }
 }

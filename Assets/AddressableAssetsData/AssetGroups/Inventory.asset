@@ -30,6 +30,16 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 91cf8bfd69d7dc94e83fcb4285b130a8
+    m_Address: ChestInventoryData
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e28699c8f32fbd54a8f488d765be75b1
+    m_Address: InventoryDataList
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f3cda1c52ccc83b43b753f15adda68c1
     m_Address: KeyDataList
     m_ReadOnly: 0

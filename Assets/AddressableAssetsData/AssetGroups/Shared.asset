@@ -30,6 +30,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8bae44e921edf6546a1a3e2463606274
+    m_Address: ChestData
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f77ec67de3e6d9341b3e58fcff193bbf
     m_Address: StartPlace
     m_ReadOnly: 0

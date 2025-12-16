@@ -8,6 +8,7 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.Abstractions
     {
         public IReadOnlyReactiveProperty<Player> Player { get; }
         public IReactiveCommand<SpawnCommand> SpawnPlayer { get; }
+        public IReactiveCommand<Unit> Died { get; }
         public UniTask Spawn(Player player);
         public void Appear();
         public void Kill();

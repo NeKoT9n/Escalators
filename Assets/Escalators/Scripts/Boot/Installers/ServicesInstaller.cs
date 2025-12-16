@@ -9,6 +9,7 @@ using Assets.Escalators.Scripts.Game.Services.Entities.Abstractions;
 using Assets.Escalators.Scripts.Game.Services.LoadLevel;
 using Assets.Escalators.Scripts.Game.Services.Obstacles.Model;
 using Inventory;
+using System;
 using Zenject;
 
 namespace Assets.Escalators.Scripts.Installers
@@ -51,7 +52,11 @@ namespace Assets.Escalators.Scripts.Installers
             Container
                 .BindInterfacesTo<InventoryRandomKeyFiller>()
                 .AsSingle();
-            
+
+            Container
+                 .BindInterfacesTo<ChestService>()
+                 .AsSingle();
+
             Container
                 .BindInterfacesTo<DragService>()
                 .AsSingle();
@@ -60,11 +65,21 @@ namespace Assets.Escalators.Scripts.Installers
                 .Bind<InventoryDragHandler>()
                 .AsSingle();
 
-            Container
-                .BindInterfacesTo<InventoryService>()
-                .AsSingle();
+            BindInventories();
+
         }
 
+        private void BindInventories()
+        {
+            Container
+                .Bind<IInventoryService>()
+                .To<InventoryService>()
+                .AsSingle();
 
+            Container.Bind<InventoryBuilder>().AsSingle();
+            Container.BindInterfacesTo<PlayerInventoryBuilder>().AsSingle();
+            Container.BindInterfacesTo<ChestInventoryBuilder>().AsSingle();
+
+        }
     }
 }

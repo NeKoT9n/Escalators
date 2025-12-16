@@ -12,9 +12,10 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.Abstractions
         public IReadOnlyReactiveProperty<Player> Player => _player;
         public IReactiveCommand<SpawnCommand> SpawnPlayer => _spawnPlayer;
 
+        public IReactiveCommand<Unit> Died => _died;
 
+        private readonly ReactiveCommand<Unit> _died = new();
         private readonly ReactiveCommand<SpawnCommand> _spawnPlayer = new();
-
         private readonly ReactiveProperty<Player> _player = new();
 
         public UniTask Spawn(Player player)
@@ -36,7 +37,8 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.Abstractions
 
         public void Kill()
         {
-            Player.Value.kill();
+            Player.Value.Kill();
+            _died.Execute(Unit.Default);
         }
 
         public void Update()

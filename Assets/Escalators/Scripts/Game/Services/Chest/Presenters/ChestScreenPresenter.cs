@@ -1,4 +1,5 @@
 ﻿using Assets.CodeCore.Scripts.Game.Infostracture;
+using Assets.Escalators.Scripts.Game.Services.Chest.Model.Inventory.Data;
 using Assets.Escalators.Scripts.Game.Services.Chest.Presenters.Inventory;
 using Assets.Escalators.Scripts.Game.Services.Chest.View.ChestScreen;
 using Inventory;
@@ -13,9 +14,10 @@ namespace Assets.Escalators.Scripts.Game.Services.Chest.Presenters
         private readonly ChestScreenView _chestScreenView;
         private readonly InventoryPresenterFactory _inventoryPresenterFactory;
 
-        private InventoryPresenter _presenter;
+        private InventoryPresenter _playerPresenter;
+        private InventoryPresenter _chestPresenter;
 
-        private CompositeDisposable _disposables = new();
+        private readonly CompositeDisposable _disposables = new();
 
         public ChestScreenPresenter(
             IInventoryService inventoryService,
@@ -29,23 +31,60 @@ namespace Assets.Escalators.Scripts.Game.Services.Chest.Presenters
 
         public void Initialize()
         {
-            var grid = _inventoryService.Grid;
-            var view = _chestScreenView.InventoryView;
-
-            _presenter = _inventoryPresenterFactory.Create(grid, view);
-            _presenter.Initialize();
-
-            _presenter.RemoveCommand
-                .Subscribe(position => _inventoryService.TryRemoveItem(position))
+            _inventoryService.Registered.Subscribe(inventory =>
+                {
+                    switch (inventory.Id) 
+                    {
+                        case InventoryTypeId.Player:
+                            CreatePlayerInventory(inventory);
+                            return;
+                        case InventoryTypeId.Chest:
+                            CreateChestInventory(inventory);
+                            return;
+                    }
+                })
                 .AddTo(_disposables);
 
-            _presenter.AddCommand
-                .Subscribe(command => _inventoryService.TryAddItem(command.Position, command.Item))
-                .AddTo(_disposables);
         }
+
+        private void CreatePlayerInventory(IReadOnlyInventoryGrid grid)
+        {
+            var playerInventoryView = _chestScreenView.InventoryView;
+
+            _playerPresenter = CreateInventory(grid, playerInventoryView);
+        }
+
+        private void CreateChestInventory(IReadOnlyInventoryGrid grid)
+        { 
+            var chestInventoryView = _chestScreenView.ChestView.InventoryView;
+
+            _chestPresenter = CreateInventory(grid, chestInventoryView);
+        }
+
+        private InventoryPresenter CreateInventory(IReadOnlyInventoryGrid grid, InventoryView view)
+        {         
+            
+            var presenter = _inventoryPresenterFactory.Create(grid, view);
+            presenter.Initialize();
+
+            presenter.RemoveCommand
+                .Subscribe(command 
+                        => _inventoryService.TryRemoveItem(command.InventoryId, command.Position))
+                .AddTo(_disposables);
+
+            presenter.AddCommand
+                .Subscribe(command
+                        => _inventoryService.TryAddItem(command.InventoryId, command.Position, command.Item))
+                .AddTo(_disposables);
+
+            return presenter;
+        }
+
         public void Dispose()
         {
-            _presenter.Dispose();
+            _chestPresenter.Dispose();
+            _playerPresenter.Dispose();
+
             _disposables.Dispose();
         }
     }

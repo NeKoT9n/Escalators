@@ -31,10 +31,8 @@ namespace Assets.Escalators.Scripts.Installers
         {
             Container.BindInterfacesTo<PlayerPresenter>().AsSingle();
 
-            Container
-                .BindInterfacesTo<ChestScreenPresenter>()
-                .AsSingle()
-                .NonLazy();
+            Container.BindInterfacesTo<ChestScreenPresenter>().AsSingle().NonLazy();
+            Container.BindInterfacesTo<ChestPresenter>().AsSingle().NonLazy();
         }
 
         private void BindViewFactories()

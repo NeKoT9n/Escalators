@@ -4,9 +4,9 @@ using Assets.Escalators.Scripts.Game.Services.Chest.View;
 using Inventory;
 using UniRx;
 using System.Collections.Generic;
-using UnityEngine;
 using System;
 using Assets.Escalators.Scripts.Game.Services.DragAndDrop;
+using Assets.Escalators.Scripts.Game.Services.Chest.Model.Inventory.Data;
 
 
 namespace Assets.Escalators.Scripts.Game.Services.Chest.Presenters.Inventory
@@ -21,7 +21,7 @@ namespace Assets.Escalators.Scripts.Game.Services.Chest.Presenters.Inventory
         private readonly IDragService _dragService;
         private readonly List<SlotPresenter> _slots = new();
 
-        public ReactiveCommand<Vector2Int> RemoveCommand = new();
+        public ReactiveCommand<ItemRemoveCommand> RemoveCommand = new();
         public ReactiveCommand<ItemAddCommand> AddCommand = new();
 
         private readonly CompositeDisposable _disposables = new();
@@ -80,8 +80,9 @@ namespace Assets.Escalators.Scripts.Game.Services.Chest.Presenters.Inventory
         {
             var position = presenter.Position;
             var item = _cellGrid.GetItem(position);
+            var id = _cellGrid.Id;
 
-            _dragService.StartDrag(item, this, position);
+            _dragService.StartDrag(new DragInformation(id, item, position));
 
         }
         private void OnEndDrag()
@@ -92,25 +93,26 @@ namespace Assets.Escalators.Scripts.Game.Services.Chest.Presenters.Inventory
         private void OnDrop(SlotPresenter presenter)
         {
             var droppedItemInfo = _dragService.Peek();
-            var item = droppedItemInfo.item;
 
-            if (item != null)
-            {
-                var sourcePresenter = droppedItemInfo.sourcePresenter;
-                var sourcePosition = droppedItemInfo.sourcePosition;
+            if (droppedItemInfo.HasValue == false)
+                return;
 
-                if (_cellGrid.CanAdd(presenter.Position, item) == false)
-                    return;
+            var droppedItem = droppedItemInfo.Value;
 
-                sourcePresenter.RemoveCommand
-                    .Execute(sourcePosition);
+            if (_cellGrid.CanAdd(presenter.Position, droppedItem.Item) == false)
+                return;
 
-                AddCommand.Execute(new()
-                {
-                    Item = item,
-                    Position = presenter.Position,
-                });  
-            }
+            RemoveCommand.Execute(
+                new ItemRemoveCommand(
+                    droppedItem.InventoryId,
+                    droppedItem.SlotPosition));
+
+            AddCommand.Execute(
+                new ItemAddCommand(
+                    _cellGrid.Id,
+                    droppedItem.Item,
+                    presenter.Position));
+            
         }
 
         public void Dispose()

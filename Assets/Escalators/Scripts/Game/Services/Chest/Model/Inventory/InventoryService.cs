@@ -1,42 +1,54 @@
-﻿using Assets.CodeCore.Scripts.Game.Infostracture;
-using Assets.Escalators.Scripts.Game.Services.Chest.Model.Inventory.Data;
+﻿using Assets.Escalators.Scripts.Game.Services.Chest.Model.Inventory.Data;
+using System;
+using System.Collections.Generic;
+using UniRx;
 using UnityEngine;
 
 namespace Inventory
 {
-    public class InventoryService : IInventoryService, IInitializable
-    {
-        public IReadOnlyInventoryGrid Grid => _grid;
+    public class InventoryService : IInventoryService
+    {      
+        public IReactiveCommand<IReadOnlyInventoryGrid> Registered => _registered;
 
-        private readonly IGameDataProvider<InventoryData> _dataProvider;
-        private CellGrid _grid;
+        private readonly ReactiveCommand<IReadOnlyInventoryGrid> _registered = new();
 
-        public InventoryService(IGameDataProvider<InventoryData> dataProvider)
+        private readonly Dictionary<InventoryTypeId, CellGrid> _inventories = new();
+
+        public void RegisterInventory(CellGrid inventory)
         {
-            _dataProvider = dataProvider;
+            _inventories.Add(inventory.Id, inventory);
+            _registered.Execute(inventory);
         }
 
-        public void Initialize()
+        public IReadOnlyInventoryGrid GetGrid(InventoryTypeId id)
         {
-            var data = _dataProvider.Data;
-            var slotAcceptRule = new DefaultSlotRule();
+            if (_inventories.TryGetValue(id, out var inventory) == false)
+                throw new Exception($"No inventory in registry with id {id}");
 
-            _grid = new(data, slotAcceptRule);
+            return inventory;
         }
 
-        public bool TryAddItem(Vector2Int cell, Item item)
+        private CellGrid GetInventory(InventoryTypeId id)
         {
-            return _grid.TryAddItem(cell, item);
+            if (_inventories.TryGetValue(id, out var inventory) == false)
+                throw new Exception($"No inventory in registry with id {id}");
+
+            return inventory;
         }
 
-        public bool TryAddItem(Item item)
+        public bool TryAddItem(InventoryTypeId inventory, Vector2Int cell, Item item)
         {
-            return _grid.TryAddItem(item);
+            return GetInventory(inventory).TryAddItem(cell, item);
         }
 
-        public bool TryRemoveItem(Vector2Int position)
+        public bool TryAddItem(InventoryTypeId inventory, Item item)
         {
-            return _grid.TryRemoveItem(position);
+            return GetInventory(inventory).TryAddItem(item);
+        }
+
+        public bool TryRemoveItem(InventoryTypeId inventory, Vector2Int position)
+        {
+            return GetInventory(inventory).TryRemoveItem(position);
         }
     }
 }

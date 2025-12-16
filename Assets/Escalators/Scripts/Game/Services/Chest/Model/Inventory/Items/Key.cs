@@ -4,7 +4,7 @@ namespace Inventory
 {
     public class Key : Item
     {
-        public KeyTypeId Type => Type;
+        public KeyTypeId Type => _keyData.KeyTypeId;
 
         private readonly KeyData _keyData;
 
