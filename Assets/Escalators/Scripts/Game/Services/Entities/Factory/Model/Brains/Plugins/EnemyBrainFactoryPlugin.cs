@@ -1,5 +1,4 @@
-﻿using Assets._Shape_Escape.Scripts.Scenes.Game.Infostracture;
-using Assets.CodeCore.Scripts.Game.Infostracture.StateMachine;
+﻿using Assets.CodeCore.Scripts.Game.Infostracture.StateMachine;
 using Assets.CodeCore.Scripts.Game.Startup.GameStates;
 using Assets.Escalators.Scripts.Game.Services.Entities.Abstractions;
 using Assets.Escalators.Scripts.Game.Services.Entities.Common;
@@ -14,43 +13,33 @@ using System.Collections.Generic;
 
 namespace Assets.Escalators.Scripts.Game.Services.Entities.Factory.Model.Brains.Plugins
 {
-    public class PlayerBrainFactoryPlugin : IBrainFactoryPlugin
+    public class EnemyBrainFactoryPlugin : IBrainFactoryPlugin
     {
-        private readonly IInputService _inputService;
         private ITargetFinder _targetFinder;
 
-        public EntityTypeId Key => EntityTypeId.Player;
-
-        public PlayerBrainFactoryPlugin(IInputService inputService)
-        {
-            _inputService = inputService;
-        }
+        public EntityTypeId Key => EntityTypeId.Enemy;
 
         public Brain Create(Entity entity)
         {
-            EntityStateMachine playerStateMachine = new();
+            EntityStateMachine enemyStateMachine = new();
 
-            EntityMoveState move = CreateMoveState(entity, playerStateMachine);
-            EntityFindTargetState findTarget = CreateFindState(entity, playerStateMachine);
-            EntityAttackState attack = CreateAttackState(entity, playerStateMachine);
+            EntityFindTargetState findTarget = CreateFindState(entity, enemyStateMachine);
+            EntityMoveState move = CreateMoveState(entity, enemyStateMachine);
+            EntityAttackState attack = CreateAttackState(entity, enemyStateMachine);
 
-            PlayerMovedCondition playerMovedCondition = new(_inputService);
-            PlayerStopedCondition playerStopedCondition = new(_inputService);
             TargetFindCondition targetFindCondition = new(_targetFinder);
 
-            move.AddTransition(new StateTransition(findTarget, playerStopedCondition.Stoped()));
-            findTarget.AddTransition(new StateTransition(attack, targetFindCondition.Finded()));
-            findTarget.AddTransition(new StateTransition(move, playerMovedCondition.IsMoving()));
+            findTarget.AddTransition(new StateTransition(move, targetFindCondition.Finded()));
             attack.AddTransition(new StateTransition(findTarget, attack.Fineshed));
 
-            playerStateMachine.Initialize(new List<IState>()
-            { 
+            enemyStateMachine.Initialize(new List<IState>()
+            {
                 move,
                 findTarget,
-                attack  
+                attack
             });
 
-            var brain = new EntityBrain(playerStateMachine);
+            var brain = new EntityBrain(enemyStateMachine);
             brain.Initialize();
 
             return brain;
@@ -58,7 +47,7 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.Factory.Model.Brains.
 
         private EntityMoveState CreateMoveState(Entity entity, IStateSwitcher stateSwitcher)
         {
-            IMover mover = new InputMover(_inputService);
+            IMover mover = new TargetMover(_targetFinder);
 
             return new(entity, mover, stateSwitcher);
         }
@@ -67,9 +56,9 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.Factory.Model.Brains.
         {
             _targetFinder = new TargetFinder(friendlyType: Key);
 
-            return new(stateSwitcher, _targetFinder, entity);      
+            return new(stateSwitcher, _targetFinder, entity);
         }
-             
+
         private EntityAttackState CreateAttackState(Entity entity, IStateSwitcher stateSwitcher)
         {
             IAttacker attacker = new SimpleCooldownAttacker(entity.AttackCooldown);

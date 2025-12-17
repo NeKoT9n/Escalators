@@ -21,4 +21,20 @@ namespace Assets.CodeCore.Scripts.Game.Services.Entitieys.Model
             return await _worldFactory.Create<EntityView>(prefab, position, isActive: false);
         }
     }
+
+    public class EnemyViewFactoryPlugin : IEntityViewFactoryPlugin
+    {
+        private readonly WorldFactory _worldFactory;
+        public EntityTypeId Key => EntityTypeId.Enemy;
+
+        public EnemyViewFactoryPlugin(WorldFactory worldFactory)
+        {
+            _worldFactory = worldFactory;
+        }
+
+        public async UniTask<EntityView> Create(AssetReferenceGameObject prefab, Vector2 position)
+        {
+            return await _worldFactory.Create<EntityView>(prefab, position, isActive: false);
+        }
+    }
 }

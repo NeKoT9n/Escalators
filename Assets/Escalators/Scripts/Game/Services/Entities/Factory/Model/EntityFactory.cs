@@ -24,7 +24,7 @@ namespace Assets.CodeCore.Scripts.Game.Services
             _brainFactory = brainFactory;
         }
 
-        public Entity Create(EntityTypeId typeId, Vector2 position)
+        public Entity Create(EntityTypeId typeId, Vector3 position)
         {
             EntityData data = _entityDataProvider.GetBy(typeId);
 

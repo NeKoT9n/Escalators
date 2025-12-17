@@ -15,7 +15,10 @@ using Assets.Escalators.Scripts.Game.Services.Chest.Presenters;
 using Assets.Escalators.Scripts.Game.Services.Chest.Presenters.Inventory;
 using Assets.Escalators.Scripts.Game.Services.Chest.Presenters.Inventory.Slots;
 using Assets.Escalators.Scripts.Game.Services.Chest.View;
+using Assets.Escalators.Scripts.Game.Services.Entities.EnemyLogic.Model;
+using Assets.Escalators.Scripts.Game.Services.Entities.Factory.Model;
 using Assets.Escalators.Scripts.Game.Services.Entities.Factory.Model.Brains.Plugins;
+using Assets.Escalators.Scripts.Game.Services.Level.LevelParts.Arenas;
 using Assets.Escalators.Scripts.Game.Services.Level.LevelParts.Roads;
 using Assets.Escalators.Scripts.Game.Services.Obstacles.Model;
 using Assets.Escalators.Scripts.Game.Services.Obstacles.Spawner;
@@ -49,9 +52,11 @@ namespace Assets.Escalators.Scripts.Installers
        
             Container.Bind<EntityFactory>().AsSingle();
             Container.Bind<IEntityFactoryPlugin>().To<PlayerFactoryPlugin>().AsTransient();
+            Container.Bind<IEntityFactoryPlugin>().To<EnemyFactoryPlugin>().AsTransient();
 
             Container.Bind<IBrainFactory>().To<BrainFactory>().AsSingle();
             Container.Bind<IBrainFactoryPlugin>().To<PlayerBrainFactoryPlugin>().AsTransient();
+            Container.Bind<IBrainFactoryPlugin>().To<EnemyBrainFactoryPlugin>().AsTransient();
 
             Container.Bind<InventorySlotViewFactory>().AsSingle();
 
@@ -76,7 +81,12 @@ namespace Assets.Escalators.Scripts.Installers
                     IReadOnlyInventorySlot, SlotView,
                     SlotPresenter, InventorySlotPresenterFactory>()
                     .AsTransient();
-            
+
+            Container
+                .BindFactory<Arena,
+                    EnemySpawner, EnemySpawnerFactory>()
+                    .AsTransient();
+
         }
 
         private void BindProviders()

@@ -24,6 +24,7 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.Common
         public float MaxHp => _data.HP;
         public float MoveSpeed => _data.MoveSpeed;
         public float AttackRange => _data.AttackRange;
+        public float AttackCooldown => _data.AttackCooldown;
         public AssetReferenceGameObject Prefab => _data.Prefab;
 
         private readonly EntityData _data;

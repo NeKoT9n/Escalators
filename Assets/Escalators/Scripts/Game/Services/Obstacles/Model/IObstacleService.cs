@@ -5,6 +5,6 @@ namespace Assets.Escalators.Scripts.Game.Services.Obstacles.Model
     public interface IObstacleService
     {
         public void AddTrackSpawner(TrackSpawner spawner);
-        public void StartSpawnObstacles();
+        public void StartSpawn();
     }
 }

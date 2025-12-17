@@ -28,6 +28,7 @@ namespace Assets.Escalators.Scripts.Core.Utils.PoolObjects
             ObstacleView view = GetFreeObject()
                 ?? await CreateNew(position, rotation);
 
+            view.transform.SetPositionAndRotation(position, rotation);
             view.gameObject.SetActive(true);
 
             return view;

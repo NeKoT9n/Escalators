@@ -1,4 +1,6 @@
 ﻿using Assets.Escalators.Scripts.Game.Services.Entities.Abstractions;
+using Assets.Escalators.Scripts.Game.Services.Entities.Common.Model;
+using Assets.Escalators.Scripts.Game.Services.Entities.Factory.Model;
 using Assets.Escalators.Scripts.Game.Services.Entities.PlayerLogic;
 using Assets.Escalators.Scripts.Game.Services.Entities.PlayerLogic.Presenters;
 using Assets.Escalators.Scripts.Game.Services.Level.LevelParts.Roads;
@@ -15,23 +17,29 @@ namespace Assets.CodeCore.Scripts.Game.Services
     {
         private readonly EntityFactory _entityFactory;
         private readonly IPlayerService _playerService;
+        private readonly IEnemyService _enemyService;
         private readonly ILevelBuilder _levelBuilder;
         private readonly IObstacleService _obstacleService;
         private readonly RoadSpawnerFactory _roadSpawnerFactory;
+        private readonly EnemySpawnerFactory _enemySpawnerFactory;
         private LevelBuildedData _levelBuildedData;
 
         public LoadLevelService(
             EntityFactory entityFactory,
             IPlayerService playerService,
+            IEnemyService enemyService,
             ILevelBuilder levelBuilder,
             IObstacleService obstacleService,
-            RoadSpawnerFactory roadSpawnerFactory)
+            RoadSpawnerFactory roadSpawnerFactory,
+            EnemySpawnerFactory enemySpawnerFactory)
         {
             _entityFactory = entityFactory;
             _playerService = playerService;
+            _enemyService = enemyService;
             _levelBuilder = levelBuilder;
             _obstacleService = obstacleService;
             _roadSpawnerFactory = roadSpawnerFactory;
+            _enemySpawnerFactory = enemySpawnerFactory;
         }
 
         public async UniTask LoadLevel(LevelData levelData)
@@ -40,10 +48,17 @@ namespace Assets.CodeCore.Scripts.Game.Services
             
             await LoadPlayer(_levelBuildedData.StartPlace.Model.PlayerSpawnPosition);
 
-            CreateSpawners(_levelBuildedData);            
+            CreateTrackSpawners(_levelBuildedData);            
+            CreateEnemySpawner(_levelBuildedData.Arena);            
         }
 
-        private void CreateSpawners(LevelBuildedData levelBuildedData)
+        private void CreateEnemySpawner(ArenaBuildedData arena)
+        {
+            var spawner = _enemySpawnerFactory.Create(arena.Model);
+            _enemyService.SetSpawner(spawner);
+        }
+
+        private void CreateTrackSpawners(LevelBuildedData levelBuildedData)
         {
             foreach (var track in levelBuildedData.Tracks)
             {

@@ -11,7 +11,7 @@ namespace Assets.Escalators.Scripts.Game.Services.Obstacles.Model
             _spawners.Add(spawners);
         }
 
-        public void StartSpawnObstacles()
+        public void StartSpawn()
         {
             foreach(var trackSpawner in _spawners)
             {

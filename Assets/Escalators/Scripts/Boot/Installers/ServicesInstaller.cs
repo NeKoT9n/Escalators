@@ -6,6 +6,7 @@ using Assets.Escalators.Scripts.Game.Services.Chest.Model.Inventory;
 using Assets.Escalators.Scripts.Game.Services.Chest.Presenters;
 using Assets.Escalators.Scripts.Game.Services.DragAndDrop;
 using Assets.Escalators.Scripts.Game.Services.Entities.Abstractions;
+using Assets.Escalators.Scripts.Game.Services.Entities.Common.Model;
 using Assets.Escalators.Scripts.Game.Services.LoadLevel;
 using Assets.Escalators.Scripts.Game.Services.Obstacles.Model;
 using Inventory;
@@ -37,7 +38,11 @@ namespace Assets.Escalators.Scripts.Installers
 
             Container
                 .Bind<IUpdateService>()
-                .To<UpdateService>().AsSingle();
+                .To<UpdateService>().AsSingle();  
+            
+            Container
+                .Bind<IEnemyService>()
+                .To<EnemyService>().AsSingle();
 
             Container
                 .Bind<ILevelBuilder>()

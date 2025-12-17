@@ -7,7 +7,7 @@ using UniRx;
 
 namespace Assets.Escalators.Scripts.Game.Services.Entities.Common.Model.StateMachine
 {
-    public class PlayerStateMachine : GameStateMachine
+    public class EntityStateMachine : GameStateMachine
     {
 
     }

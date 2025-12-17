@@ -13,11 +13,13 @@ namespace Assets.CodeCore.Scripts.Game.Services.Entitieys.Data
         [SerializeField] private float _hp = 100f;
         [SerializeField] private float _moveSpeed = 3f;
         [SerializeField] private float _attackRange = 1f;
+        [SerializeField] private float _attackCooldown = 1f;
 
         public AssetReferenceGameObject Prefab => _prefab;
         public float HP => _hp;
         public float MoveSpeed => _moveSpeed;
         public float AttackRange => _attackRange;
+        public float AttackCooldown => _attackCooldown;
         public EntityTypeId Type => _entityType;
 
     }

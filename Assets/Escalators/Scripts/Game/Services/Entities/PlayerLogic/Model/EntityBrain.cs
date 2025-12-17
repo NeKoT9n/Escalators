@@ -9,13 +9,13 @@ using UniRx;
 
 namespace Assets.Escalators.Scripts.Game.Services.Entities.PlayerLogic
 {
-    public class PlayerBrain : Brain, IInitializable
+    public class EntityBrain : Brain, IInitializable
     {
-        private readonly PlayerStateMachine _playerStateMachine;
+        private readonly EntityStateMachine _playerStateMachine;
 
         private readonly CompositeDisposable _disposables = new();
 
-        public PlayerBrain(PlayerStateMachine playerStateMachine)
+        public EntityBrain(EntityStateMachine playerStateMachine)
         {
             _playerStateMachine = playerStateMachine;
         }

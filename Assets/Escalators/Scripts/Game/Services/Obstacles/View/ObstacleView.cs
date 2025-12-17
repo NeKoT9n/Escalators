@@ -34,6 +34,7 @@ namespace Assets.Escalators.Scripts.Game.Services.Obstacles.Model
 
         public void OnKillZoneEnter()
         {
+            _disposable?.Dispose();
             gameObject.SetActive(false);
         }
 

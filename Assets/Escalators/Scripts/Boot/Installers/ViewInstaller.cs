@@ -1,6 +1,7 @@
 ﻿using Assets.CodeCore.Scripts.Game.Services.Entitieys.Model;
 using Assets.Escalators.Scripts.Game.Services.Chest.Presenters;
 using Assets.Escalators.Scripts.Game.Services.Chest.View.ChestScreen;
+using Assets.Escalators.Scripts.Game.Services.Entities.EnemyLogic.Presenter;
 using Assets.Escalators.Scripts.Game.Services.Entities.PlayerLogic.Presenters;
 using Unity.Cinemachine;
 using UnityEngine;
@@ -30,6 +31,7 @@ namespace Assets.Escalators.Scripts.Installers
         private void BindPresenters()
         {
             Container.BindInterfacesTo<PlayerPresenter>().AsSingle();
+            Container.BindInterfacesTo<EnemiesPresenter>().AsSingle();
 
             Container.BindInterfacesTo<ChestScreenPresenter>().AsSingle().NonLazy();
             Container.BindInterfacesTo<ChestPresenter>().AsSingle().NonLazy();
@@ -39,6 +41,7 @@ namespace Assets.Escalators.Scripts.Installers
         {
             Container.Bind<EntityViewFactory>().AsSingle();
             Container.Bind<IEntityViewFactoryPlugin>().To<PlayerViewFactoryPlugin>().AsTransient();
+            Container.Bind<IEntityViewFactoryPlugin>().To<EnemyViewFactoryPlugin>().AsTransient();
         }
     }
 }

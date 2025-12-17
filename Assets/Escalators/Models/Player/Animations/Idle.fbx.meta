@@ -22,7 +22,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -62,7 +62,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 0.28
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -112,7 +112,127 @@ ModelImporter:
   humanDescription:
     serializedVersion: 3
     human: []
-    skeleton: []
+    skeleton:
+    - name: Idle(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: body
+      parentName: Idle(Clone)
+      position: {x: -0.00015261352, y: 0.005767998, z: -0.00009488274}
+      rotation: {x: 0.00078549003, y: -0.998825, z: -0.024135532, w: 0.042018503}
+      scale: {x: 1, y: 1, z: 1}
+    - name: body2
+      parentName: body
+      position: {x: -0, y: 0.0019229586, z: 0.0000071008}
+      rotation: {x: 0.03768673, y: -0.019402783, z: 0.0033059956, w: 0.99909574}
+      scale: {x: 1, y: 1, z: 1}
+    - name: body3
+      parentName: body2
+      position: {x: 0.0000267064, y: 0.0017360026, z: 0}
+      rotation: {x: 0.0752843, y: -0.03966859, z: 0.00573352, w: 0.99635625}
+      scale: {x: 1, y: 1, z: 1}
+    - name: shoulder_l
+      parentName: body3
+      position: {x: 0.00087684515, y: 0.0009881872, z: 0}
+      rotation: {x: 0.08831213, y: -0.03261243, z: -0.15912269, w: 0.9827601}
+      scale: {x: 1, y: 1, z: 1}
+    - name: hand_l_1
+      parentName: shoulder_l
+      position: {x: 0.00074207276, y: -0.00000083439994, z: 0}
+      rotation: {x: 0.08125245, y: 0.037908293, z: 0.12678045, w: 0.98787034}
+      scale: {x: 1, y: 1, z: 1}
+    - name: hand_l_2
+      parentName: hand_l_1
+      position: {x: 0.002352697, y: 0.000007873599, z: -0.00009483879}
+      rotation: {x: -0.2997706, y: 0.031168066, z: 0.013470599, w: 0.9534069}
+      scale: {x: 1, y: 1, z: 1}
+    - name: hand_l_3
+      parentName: hand_l_2
+      position: {x: 0.0024094335, y: 0.0000396732, z: 0.0000099288}
+      rotation: {x: -0.0364877, y: -0.112623766, z: 0.13514031, w: 0.98372847}
+      scale: {x: 1, y: 1, z: 1}
+    - name: hand_l_4
+      parentName: hand_l_3
+      position: {x: 0.0022526502, y: -0.0000082068, z: 0.000010483199}
+      rotation: {x: 0.0006923209, y: 0.038003888, z: 0.018204063, w: 0.99911153}
+      scale: {x: 1, y: 1, z: 1}
+    - name: shoulder_r
+      parentName: body3
+      position: {x: -0.0008279403, y: 0.0009881872, z: 0}
+      rotation: {x: -0.006978697, y: -0.015805794, z: 0.13401453, w: 0.9908288}
+      scale: {x: 1, y: 1, z: 1}
+    - name: hand_r_1
+      parentName: shoulder_r
+      position: {x: -0.0007417956, y: -0.000020199199, z: 0}
+      rotation: {x: -0.019903472, y: 0.06899051, z: -0.1215847, w: 0.98998046}
+      scale: {x: 1, y: 1, z: 1}
+    - name: hand_r_2
+      parentName: hand_r_1
+      position: {x: -0.0023525627, y: -0.000026300399, z: -0.00009483879}
+      rotation: {x: -0.33923557, y: -0.05129405, z: -0.016634807, w: 0.9391547}
+      scale: {x: 1, y: 1, z: 1}
+    - name: hand_r_3
+      parentName: hand_r_2
+      position: {x: -0.002405491, y: 0.0000065744, z: 0.00014357839}
+      rotation: {x: 0.07910082, y: 0.07823401, z: -0.08609101, w: 0.990056}
+      scale: {x: 1, y: 1, z: 1}
+    - name: hand_r_4
+      parentName: hand_r_3
+      position: {x: -0.0022435558, y: -0.00008999759, z: 0.00018157718}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: neck
+      parentName: body3
+      position: {x: 0.00000010359999, y: 0.001095122, z: 0}
+      rotation: {x: 0.07169076, y: -0.015374586, z: 0.03407356, w: 0.99672616}
+      scale: {x: 1, y: 1, z: 1}
+    - name: head
+      parentName: neck
+      position: {x: 0.000026602798, y: 0.0009613744, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: foot_r_1
+      parentName: body
+      position: {x: -0.0011639879, y: -0.00038383796, z: 0.00004494}
+      rotation: {x: -0.274852, y: -0.115983225, z: -0.09157171, w: 0.95006263}
+      scale: {x: 1, y: 1, z: 1}
+    - name: foot_r_2
+      parentName: foot_r_1
+      position: {x: -0.00001022, y: -0.0027663382, z: 0.0000065659997}
+      rotation: {x: 0.38731545, y: 0.086580776, z: -0.033654504, w: 0.91725564}
+      scale: {x: 1, y: 1, z: 1}
+    - name: foot_r_3
+      parentName: foot_r_2
+      position: {x: -0, y: -0.0029394957, z: -0.000011538799}
+      rotation: {x: 0.46459076, y: 0.07029642, z: 0.07642463, w: 0.8794164}
+      scale: {x: 1, y: 1, z: 1}
+    - name: foot_r_4
+      parentName: foot_r_3
+      position: {x: -0, y: 0.0000656264, z: 0.0023555923}
+      rotation: {x: -0.039247613, y: 0, z: -0, w: 0.99922955}
+      scale: {x: 1, y: 1, z: 1}
+    - name: foot_l_1
+      parentName: body
+      position: {x: 0.0012663084, y: -0.00038383796, z: 0.00004494}
+      rotation: {x: -0.0816745, y: 0.12723912, z: 0.12566173, w: 0.98048395}
+      scale: {x: 1, y: 1, z: 1}
+    - name: foot_l_2
+      parentName: foot_l_1
+      position: {x: 0.00001022, y: -0.0027663382, z: 0.0000065659997}
+      rotation: {x: 0.36129993, y: -0.004310323, z: 0.013386132, w: 0.9323436}
+      scale: {x: 1, y: 1, z: 1}
+    - name: foot_l_3
+      parentName: foot_l_2
+      position: {x: -0, y: -0.0029394957, z: -0.000011538799}
+      rotation: {x: 0.33389646, y: -0.050428063, z: -0.16899455, w: 0.92596495}
+      scale: {x: 1, y: 1, z: 1}
+    - name: foot_l_4
+      parentName: foot_l_3
+      position: {x: -0, y: 0.0000656264, z: 0.0023555923}
+      rotation: {x: -0.039247613, y: 0, z: -0, w: 0.99922955}
+      scale: {x: 1, y: 1, z: 1}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
@@ -120,16 +240,16 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 1
+    globalScale: 0.0028
     rootMotionBoneName: 
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   importBlendShapeDeformPercent: 1
   remapMaterialsIfMaterialImportModeIsNone: 0
