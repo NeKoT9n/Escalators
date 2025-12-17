@@ -1,4 +1,5 @@
-﻿using Assets.Escalators.Scripts.Game.Services.Entities.Abstractions;
+﻿using Assets.Escalators.Scripts.Game.Services;
+using Assets.Escalators.Scripts.Game.Services.Entities.Abstractions;
 using Assets.Escalators.Scripts.Game.Services.Entities.Common.Model;
 using Assets.Escalators.Scripts.Game.Services.Entities.Factory.Model;
 using Assets.Escalators.Scripts.Game.Services.Entities.PlayerLogic;
@@ -18,6 +19,7 @@ namespace Assets.CodeCore.Scripts.Game.Services
         private readonly EntityFactory _entityFactory;
         private readonly IPlayerService _playerService;
         private readonly IEnemyService _enemyService;
+        private readonly IArenaService _arenaService;
         private readonly ILevelBuilder _levelBuilder;
         private readonly IObstacleService _obstacleService;
         private readonly RoadSpawnerFactory _roadSpawnerFactory;
@@ -28,6 +30,7 @@ namespace Assets.CodeCore.Scripts.Game.Services
             EntityFactory entityFactory,
             IPlayerService playerService,
             IEnemyService enemyService,
+            IArenaService arenaService,
             ILevelBuilder levelBuilder,
             IObstacleService obstacleService,
             RoadSpawnerFactory roadSpawnerFactory,
@@ -36,6 +39,7 @@ namespace Assets.CodeCore.Scripts.Game.Services
             _entityFactory = entityFactory;
             _playerService = playerService;
             _enemyService = enemyService;
+            _arenaService = arenaService;
             _levelBuilder = levelBuilder;
             _obstacleService = obstacleService;
             _roadSpawnerFactory = roadSpawnerFactory;
@@ -55,6 +59,7 @@ namespace Assets.CodeCore.Scripts.Game.Services
         private void CreateEnemySpawner(ArenaBuildedData arena)
         {
             var spawner = _enemySpawnerFactory.Create(arena.Model);
+            _arenaService.SetArena(arena.Model);
             _enemyService.SetSpawner(spawner);
         }
 

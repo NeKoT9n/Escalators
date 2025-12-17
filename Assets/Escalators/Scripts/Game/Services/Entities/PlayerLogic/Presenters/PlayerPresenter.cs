@@ -37,7 +37,8 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.PlayerLogic.Presenter
             _playerService.SpawnPlayer
                 .Subscribe(async command =>
                 {
-                    await SpawnPlayer(command.Player);
+                    Player player = command.Entity as Player;
+                    await SpawnPlayer(player);
                     command.Completion.TrySetResult();
                 }); 
         }

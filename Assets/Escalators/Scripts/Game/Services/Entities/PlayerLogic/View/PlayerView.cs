@@ -10,11 +10,6 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.PlayerLogic.View
 
         public IReactiveCommand<ObstacleView> Collided => _collided;
 
-        public void TakeDamage(float damage)
-        {
-            
-        }
-
         public void OnColided(ObstacleView obstacle)
         {
             _collided.Execute(obstacle);

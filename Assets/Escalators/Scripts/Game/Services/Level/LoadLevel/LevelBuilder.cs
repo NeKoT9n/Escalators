@@ -37,8 +37,6 @@ namespace Assets.Escalators.Scripts.Game.Services.LoadLevel
 
             result.StartPlace.View = startView;
 
-            List<Track> tracks = new();
-
             foreach (var trackData in buildData.Tracks)
             {
 
@@ -66,7 +64,7 @@ namespace Assets.Escalators.Scripts.Game.Services.LoadLevel
             }
 
             var arenaView = await SpawnAndAlignByStartAnchor<ArenaView>(buildData.ArenaPrefab);
-            Arena arena = new(arenaView.SpawnPoints, arenaView.transform.position);
+            Arena arena = new(arenaView.SpawnPoints,arenaView.ArenaTrigger, arenaView.transform.position);
 
             result.Arena.Model = arena;
             result.Arena.View = arenaView;

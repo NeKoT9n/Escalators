@@ -35,8 +35,16 @@ namespace Assets.Escalators.Scripts.Installers
             BindFactories();
             BindProviders();
             BindConditions();
+            BindSignals();
 
             Container.BindInterfacesTo<GameService>().AsSingle();
+        }
+
+        private void BindSignals()
+        {
+            SignalBusInstaller.Install(Container);
+
+            Container.DeclareSignal<PlayerEnterArenaSignal>();
         }
 
         private void BindConditions()

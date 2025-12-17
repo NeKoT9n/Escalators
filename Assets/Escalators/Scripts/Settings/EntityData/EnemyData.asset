@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Assets.CodeCore.Scripts.Game.Services.Entitieys.Data.EntityData
   _entityType: 2
   _prefab:
-    m_AssetGUID: 71000eeba046edb4583f69f4f9b31ed1
+    m_AssetGUID: bd819a80be4c1a34e92068c0e8f15a80
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 
@@ -22,3 +22,4 @@ MonoBehaviour:
   _hp: 100
   _moveSpeed: 3
   _attackRange: 1
+  _attackCooldown: 1

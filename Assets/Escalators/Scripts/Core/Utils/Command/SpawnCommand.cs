@@ -1,14 +1,15 @@
-﻿using Assets.Escalators.Scripts.Game.Services.Entities.PlayerLogic;
+﻿using Assets.Escalators.Scripts.Game.Services.Entities.Common;
+using Assets.Escalators.Scripts.Game.Services.Entities.PlayerLogic;
 
 namespace Assets.Escalators.Scripts.Game.Services.Entities.Abstractions
 {
     public class SpawnCommand : UniTaskCommand
     {
-        public Player Player;
+        public Entity Entity;
 
-        public SpawnCommand(Player player) : base()
+        public SpawnCommand(Entity entity) : base()
         {
-            Player = player;
+            Entity = entity;
         }
     }
 }

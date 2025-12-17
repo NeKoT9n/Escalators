@@ -1,4 +1,5 @@
 ﻿using Assets.Escalators.Scripts.Game.Services.Entities.Common.View;
+using Assets.Escalators.Scripts.Game.Services.Entities.EnemyLogic.View;
 using Assets.Escalators.Scripts.Game.Services.Entities.PlayerLogic.Presenters;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -34,7 +35,7 @@ namespace Assets.CodeCore.Scripts.Game.Services.Entitieys.Model
 
         public async UniTask<EntityView> Create(AssetReferenceGameObject prefab, Vector2 position)
         {
-            return await _worldFactory.Create<EntityView>(prefab, position, isActive: false);
+            return await _worldFactory.Create<EnemyView>(prefab, position, isActive: false);
         }
     }
 }

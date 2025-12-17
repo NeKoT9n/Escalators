@@ -2,7 +2,7 @@
 using Assets.Escalators.Scripts.Game.Services.Entities.Common.Model;
 using Assets.Escalators.Scripts.Game.Services.Entities.PlayerLogic.Presenters;
 using Assets.Escalators.Scripts.Game.Services.Level.LevelParts.Arenas;
-using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 
 namespace Assets.Escalators.Scripts.Game.Services.Entities.EnemyLogic.Model
 {
@@ -19,12 +19,12 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.EnemyLogic.Model
             _arena = arena;
         }
 
-        public void Spawn()
+        public async UniTask Spawn()
         {
             foreach(var spawnPoint in _arena.EnemySpawnPositions)
             {
                 var enemy = (Enemy)_entityFactory.Create(EntityTypeId.Enemy, spawnPoint.position);
-                _enemyService.Add(enemy);
+                await _enemyService.Spawn(enemy);
             }
         }
     }

@@ -2,6 +2,7 @@
 using Assets.CodeCore.Scripts.Game.Services.Entitieys.Model;
 using Assets.Escalators.Scripts.Game.Services.Entities.Common.Model;
 using Assets.Escalators.Scripts.Game.Services.Entities.Common.Presenters;
+using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;
 using UniRx;
@@ -14,7 +15,7 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.EnemyLogic.Presenter
         private readonly EntityViewFactory _entityViewFactory;
         private readonly List<EntityPresenter> _entities = new();
 
-        private CompositeDisposable _disposables = new();
+        private readonly CompositeDisposable _disposables = new();
         public EnemiesPresenter(IEnemyService enemyService, EntityViewFactory entityViewFactory)
         {
             _enemyService = enemyService;
@@ -23,13 +24,17 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.EnemyLogic.Presenter
 
         public void Initialize()
         {
-            _enemyService.Enemies
-                .ObserveAdd()
-                .Subscribe(eventData => SpawnEnemy(eventData.Value))
+            _enemyService.Spawned
+                .Subscribe(async command =>
+                {
+                    Enemy enemy = command.Entity as Enemy;
+                    await SpawnEnemy(enemy);
+                    command.Completion.TrySetResult();
+                })
                 .AddTo(_disposables);
         }
 
-        private async void SpawnEnemy(Enemy enemy)
+        private async UniTask SpawnEnemy(Enemy enemy)
         {
             var view = await _entityViewFactory.Spawn(enemy);
 

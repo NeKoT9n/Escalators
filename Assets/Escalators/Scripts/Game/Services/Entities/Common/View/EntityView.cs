@@ -15,7 +15,7 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.Common.View
         [SerializeField] private EntityTypeId _entityType = EntityTypeId.None;
         [SerializeField] private Animator _animator;
 
-        public ReactiveCommand<int> Damageted {  get; private set; }
+        public ReactiveCommand<int> Damageted { get; private set; } = new();
         public GameObject GameObject => gameObject;
         public EntityTypeId EntityTypeId => _entityType;
 
@@ -32,7 +32,7 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.Common.View
         public void SetRotation(Quaternion rotation)
             => transform.rotation = rotation;
 
-        public void PlayAppereEffect()
+        public virtual void PlayAppereEffect()
         {
             transform.localScale = _startSpawnScale;
             gameObject.SetActive(true);
@@ -45,7 +45,7 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.Common.View
             _animator.SetBool(nameof(IsRunning), IsRunning);
         }
 
-        public void Kill()
+        public virtual void Kill()
         {
             gameObject.SetActive(false);
         }
