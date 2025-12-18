@@ -5,6 +5,6 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.Abstractions
 {
     public interface IAttacker
     {
-        public bool TryAttack(Entity model, IDamagetable damagetable);
+        public UniTask TryAttack(IDamagetable damagetable);
     }
 }

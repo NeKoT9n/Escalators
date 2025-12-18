@@ -1,5 +1,6 @@
 ﻿using Assets.Escalators.Scripts.Core.Utils;
 using Assets.Escalators.Scripts.Game.Services.Entities.Abstractions;
+using Cysharp.Threading.Tasks;
 using System;
 using UniRx;
 
@@ -7,36 +8,36 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.Common.Model
 {
     public class SimpleCooldownAttacker : IAttacker, IDisposable
     {
-        private readonly float _cooldown;
+        private float Cooldown => _entity.AttackCooldown;
 
         private readonly Timer _timer = new();
         private bool _canAttack = true;
 
         private readonly IDisposable _disposable;
-        public SimpleCooldownAttacker(float cooldown)
+        private readonly Entity _entity;
+
+        public SimpleCooldownAttacker(Entity entity)
         {
-            _cooldown = cooldown;
+            _entity = entity;
 
             _disposable = _timer.OnTimerElapsed
                 .Subscribe(_ => _canAttack = true);
         }
 
-        public bool TryAttack(Entity entity, IDamagetable damagetable)
+        public async UniTask TryAttack(IDamagetable damagetable)
         {
-            if(_canAttack == false)
-                return false;
+            if (_canAttack == false)
+                return;
 
             if(damagetable == null)
-                return false;
+                return;
 
             _canAttack = false;
 
-            entity.Attack.Execute();
-            damagetable.TakeDamage(20);
+            await _entity.Attack();
 
-            _timer.StartTimer(_cooldown);
+            _timer.StartTimer(Cooldown);
 
-            return true;
         }
 
         public void Dispose()

@@ -10,7 +10,7 @@ namespace Assets.Escalators.Scripts.Core.Utils
     {
         public IObservable<Unit> OnTimerElapsed => _timerElapsed;
 
-        private Subject<Unit> _timerElapsed = new();
+        private readonly Subject<Unit> _timerElapsed = new();
         private CancellationTokenSource _cancellationToken;
 
         public void StartTimer(float seconds)
@@ -31,14 +31,7 @@ namespace Assets.Escalators.Scripts.Core.Utils
             {
                 await UniTask.WaitForSeconds(time, cancellationToken: cancellationToken);
             }
-            catch (OperationCanceledException)
-            {
-                Debug.LogWarning("Timer canceled");
-            }
-            finally
-            {
-                _cancellationToken?.Dispose();
-            }
+            catch (OperationCanceledException) { }
 
         }
     }

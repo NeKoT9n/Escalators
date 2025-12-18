@@ -1,7 +1,9 @@
 ﻿using Assets.CodeCore.Scripts.Game.Services.Entitieys.Data;
+using Assets.Escalators.Scripts.Core.Utils.Extentions;
 using Assets.Escalators.Scripts.Game.Services.Entities.Abstractions;
 using Assets.Escalators.Scripts.Game.Services.Entities.Common.Model;
 using Assets.Escalators.Scripts.Game.Services.Entities.PlayerLogic.Presenters;
+using Cysharp.Threading.Tasks;
 using UniRx;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -15,7 +17,7 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.Common
         public ReactiveProperty<float> CurrentHealth { get; } = new();
         public ReactiveCommand Died { get; } = new();
         public ReactiveCommand Appeared { get; } = new();
-        public ReactiveCommand Attack { get; } = new();
+        public ReactiveCommand<AttackCommand> Attacked { get; } = new();
         public ReactiveProperty<bool> IsMoving { get; } = new(false);
 
         public ReactiveProperty<Brain> Brain = new();
@@ -23,8 +25,10 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.Common
         public EntityTypeId Type => _data.Type;
         public float MaxHp => _data.HP;
         public float MoveSpeed => _data.MoveSpeed;
+        public float TargetingRange => _data.TargetingRange;
         public float AttackRange => _data.AttackRange;
         public float AttackCooldown => _data.AttackCooldown;
+        public float Damage => _data.Damage;
         public AssetReferenceGameObject Prefab => _data.Prefab;
 
         private readonly EntityData _data;
@@ -51,6 +55,7 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.Common
         {
             CurrentHealth.Value = Mathf.Max(0, CurrentHealth.Value - damage);
 
+            Debug.Log($"{Type} damaged. Heals: {CurrentHealth}");
             if (CurrentHealth.Value <= 0)
                 Kill();
         }
@@ -60,5 +65,22 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.Common
             Died.Execute();
         }
 
+        public void DealDamage(IDamagetable damagetable)
+        {
+            if (damagetable == null)
+                return;
+
+            if (damagetable.EntityType == Type)
+                return;
+
+            damagetable.TakeDamage(20);
+        }
+
+        public async UniTask Attack() 
+        {
+            AttackCommand command = new(Damage);
+
+            await Attacked.ExecuteAwaitable(command);
+        }
     }
 }

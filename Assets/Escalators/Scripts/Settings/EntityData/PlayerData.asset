@@ -21,4 +21,7 @@ MonoBehaviour:
     m_EditorAssetChanged: 0
   _hp: 100
   _moveSpeed: 5
-  _attackRange: 1
+  _targetingRange: 1.5
+  _attackRange: 1.5
+  _attackCooldown: 1
+  _damage: 20

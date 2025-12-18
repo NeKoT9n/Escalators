@@ -1,27 +1,54 @@
 using Assets._Shape_Escape.Scripts.Scenes.Game.Infostracture;
 using Assets.Escalators.Scripts.Game.Services.Entities.Abstractions;
 using Assets.Escalators.Scripts.Game.Services.Entities.Common;
+using TMPro;
 using UnityEngine;
 
 public class InputMover : IMover
 {
+    private readonly Entity _entity;
     private readonly IInputService _inputService;
 
-    public InputMover(IInputService inputService)
+    public InputMover(Entity entity, IInputService inputService)
     {
+        _entity = entity;
         _inputService = inputService;
     }
-    public void Move(Entity entity, float deltaTime)
+
+    public void LookAt(Vector3 at)
     {
-        var direction = _inputService.MoveDirection.Value;
+        Vector3 direction = at - _entity.Position.Value;
+        direction.y = 0;
 
-        entity.IsMoving.Value = true;
+        LookDirection(direction);
+    }
 
-        Vector3 directionInWorld = new Vector3(direction.x, 0, direction.y).normalized;
-        Vector3 newPosition = entity.Position.Value + directionInWorld * entity.MoveSpeed * deltaTime;
+    public void Move()
+    {
+        var input = _inputService.MoveDirection.Value;
 
-        entity.Position.Value = newPosition;
-        entity.Rotation.Value = Quaternion.LookRotation(directionInWorld);
+        _entity.IsMoving.Value = true;
+
+        var direction = new Vector3(input.x, 0, input.y).normalized;
+
+        Vector3 newPosition = 
+            _entity.Position.Value + 
+            direction * 
+            _entity.MoveSpeed * 
+            Time.deltaTime;
+
+        _entity.Position.Value = newPosition;
+        LookDirection(direction);
+    }
+
+    private void LookDirection(Vector3 direction)
+    {
+        _entity.Rotation.Value = Quaternion.LookRotation(direction);
+    }
+
+    public void Stop()
+    {
+        _entity.IsMoving.Value = false;
     }
 }
 

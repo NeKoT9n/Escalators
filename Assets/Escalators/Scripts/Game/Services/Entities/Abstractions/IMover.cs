@@ -1,10 +1,12 @@
-﻿using Assets.Escalators.Scripts.Game.Services.Entities.Common;
+﻿
 using UnityEngine;
 
 namespace Assets.Escalators.Scripts.Game.Services.Entities.Abstractions
 {
     public interface IMover
     {
-        public void Move(Entity entity, float deltaTime);
+        public void Move();
+        public void Stop();
+        public void LookAt(Vector3 at);
     }
 }

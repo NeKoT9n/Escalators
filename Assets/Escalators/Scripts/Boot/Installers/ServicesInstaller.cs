@@ -42,8 +42,8 @@ namespace Assets.Escalators.Scripts.Installers
                 .To<UpdateService>().AsSingle();  
             
             Container
-                .Bind<IEnemyService>()
-                .To<EnemyService>().AsSingle();
+                .BindInterfacesTo<EnemyService>()
+                .AsSingle();
 
             Container
                 .Bind<ILevelBuilder>()

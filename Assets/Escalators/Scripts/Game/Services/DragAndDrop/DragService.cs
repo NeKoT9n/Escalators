@@ -15,7 +15,7 @@ namespace Assets.Escalators.Scripts.Game.Services.DragAndDrop
 
         private readonly ItemView _dragItemView;
 
-        private DragInformation? _current;
+        private DragData? _current;
 
         public DragService(ChestScreenView chestScreenView, IInputService inputService)
         {
@@ -25,7 +25,7 @@ namespace Assets.Escalators.Scripts.Game.Services.DragAndDrop
             _inputService = inputService;
         }
 
-        public void StartDrag(DragInformation dragInformation)
+        public void StartDrag(DragData dragInformation)
         {
             if (dragInformation.IsEmpty)
                 return;
@@ -38,10 +38,11 @@ namespace Assets.Escalators.Scripts.Game.Services.DragAndDrop
         }
         public void Update()
         {
-            _dragItemView.transform.position = _inputService.MousePosition;
+            if (_dragItemView != null)
+                _dragItemView.transform.position = _inputService.MousePosition;
         }
 
-        public DragInformation? Peek()
+        public DragData? Peek()
         {
             return _current;
         }
@@ -61,13 +62,13 @@ namespace Assets.Escalators.Scripts.Game.Services.DragAndDrop
         }
     }
 
-    public struct DragInformation
+    public struct DragData
     {
         public InventoryTypeId InventoryId;
         public Item Item;
         public Vector2Int SlotPosition;
 
-        public DragInformation(InventoryTypeId inventoryId, Item item, Vector2Int slotPosition)
+        public DragData(InventoryTypeId inventoryId, Item item, Vector2Int slotPosition)
         {
             InventoryId = inventoryId;
             Item = item;

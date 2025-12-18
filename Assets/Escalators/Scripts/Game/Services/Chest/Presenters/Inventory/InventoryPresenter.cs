@@ -82,7 +82,7 @@ namespace Assets.Escalators.Scripts.Game.Services.Chest.Presenters.Inventory
             var item = _cellGrid.GetItem(position);
             var id = _cellGrid.Id;
 
-            _dragService.StartDrag(new DragInformation(id, item, position));
+            _dragService.StartDrag(new DragData(id, item, position));
 
         }
         private void OnEndDrag()
