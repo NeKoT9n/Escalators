@@ -1,4 +1,4 @@
-﻿using System;
+﻿using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,7 +8,7 @@ namespace Assets.CodeCore.Scripts.Game.UI.Base
     public class UIButton : UIBase
     {
         private Button _button;
-        public event Action Pressed;
+        public ReactiveCommand<Unit> Pressed { get; private set; } = new();
 
         private void Awake()
         {
@@ -17,12 +17,12 @@ namespace Assets.CodeCore.Scripts.Game.UI.Base
 
         private void OnEnable()
         {
-            _button.onClick.AddListener(() => Pressed?.Invoke());
+            _button.onClick.AddListener(() => Pressed.Execute(Unit.Default));
         }
 
         private void OnDisable()
         {
-            _button.onClick.RemoveListener(() => Pressed?.Invoke());
+            _button.onClick.RemoveListener(() => Pressed.Execute(Unit.Default));
         }
 
     }

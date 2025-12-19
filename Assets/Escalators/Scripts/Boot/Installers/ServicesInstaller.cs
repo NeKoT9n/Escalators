@@ -3,6 +3,7 @@ using Assets.CodeCore.Scripts.Game.Services;
 using Assets.Escalators.Scripts.Core.Services.Update;
 using Assets.Escalators.Scripts.Game.Services;
 using Assets.Escalators.Scripts.Game.Services.Camera;
+using Assets.Escalators.Scripts.Game.Services.Chest.Box;
 using Assets.Escalators.Scripts.Game.Services.Chest.Model.Inventory;
 using Assets.Escalators.Scripts.Game.Services.Chest.Presenters;
 using Assets.Escalators.Scripts.Game.Services.DragAndDrop;
@@ -65,6 +66,10 @@ namespace Assets.Escalators.Scripts.Installers
 
             Container
                  .BindInterfacesTo<ChestService>()
+                 .AsSingle(); 
+            
+            Container
+                 .BindInterfacesTo<ChestBoxService>()
                  .AsSingle();
 
             Container

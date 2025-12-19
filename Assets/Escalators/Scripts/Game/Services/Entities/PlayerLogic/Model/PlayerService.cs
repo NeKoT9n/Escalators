@@ -14,6 +14,8 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.Abstractions
 
         public IReactiveCommand<Unit> Died => _died;
 
+        public Vector3 Position => _player.Value.Position.Value;
+
         private readonly ReactiveCommand<Unit> _died = new();
         private readonly ReactiveCommand<SpawnCommand> _spawnPlayer = new();
         private readonly ReactiveProperty<Player> _player = new();

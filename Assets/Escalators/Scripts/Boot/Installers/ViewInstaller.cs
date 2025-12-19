@@ -1,4 +1,5 @@
 ﻿using Assets.CodeCore.Scripts.Game.Services.Entitieys.Model;
+using Assets.Escalators.Scripts.Game.Services.Chest.Box;
 using Assets.Escalators.Scripts.Game.Services.Chest.Presenters;
 using Assets.Escalators.Scripts.Game.Services.Chest.View.ChestScreen;
 using Assets.Escalators.Scripts.Game.Services.Entities.EnemyLogic.Presenter;
@@ -14,6 +15,7 @@ namespace Assets.Escalators.Scripts.Installers
         [SerializeField] private FixedJoystick _joystick;
         [SerializeField] private CinemachineCamera _camera;
         [SerializeField] private ChestScreenView _chestScreen;
+        [SerializeField] private ChestBox _chest;
         public override void InstallBindings()
         {
             BindInstances();
@@ -26,6 +28,7 @@ namespace Assets.Escalators.Scripts.Installers
             Container.Bind<Joystick>().FromInstance(_joystick).AsSingle();
             Container.Bind<CinemachineCamera>().FromInstance(_camera).AsSingle();
             Container.Bind<ChestScreenView>().FromInstance(_chestScreen).AsSingle();
+            Container.Bind<ChestBox>().FromInstance(_chest).AsSingle();
         }
 
         private void BindPresenters()

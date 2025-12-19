@@ -12,8 +12,12 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.Common.Model
     {
         public IReadOnlyReactiveCollection<Enemy> Enemies => _enemies;
         public IReactiveCommand<SpawnCommand> Spawned => _spawned;
+
+        public IReactiveCommand<Unit> DiedAll => _diedAll;
+
         private readonly ReactiveCommand<SpawnCommand> _spawned = new();
-        
+        private readonly ReactiveCommand<Unit> _diedAll = new();
+
         private readonly ReactiveCollection<Enemy> _enemies = new();
         private EnemySpawner _enemySpawner;
 
@@ -23,7 +27,18 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.Common.Model
             SpawnCommand spawnCommand = new(entity);
             _enemies.Add(entity);
 
+            entity.Died.
+                Subscribe(_ => Kill(entity));
+
             await _spawned.ExecuteAwaitable(spawnCommand);
+        }
+
+        public void Kill(Enemy entity)
+        {
+            _enemies.Remove(entity);
+
+            if (_enemies.Count <= 0)
+                _diedAll.Execute(Unit.Default);
         }
 
         public void SetSpawner(EnemySpawner enemySpawner)

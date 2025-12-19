@@ -85,7 +85,7 @@ namespace Assets.CodeCore.Scripts.Game.Services
             return await _levelBuilder.Build(levelData.BuildData);
         }
 
-        private async UniTask LoadPlayer(Vector2 position)
+        private async UniTask LoadPlayer(Vector3 position)
         {
             Player player = (Player)_entityFactory
                             .Create(EntityTypeId.Player, position);

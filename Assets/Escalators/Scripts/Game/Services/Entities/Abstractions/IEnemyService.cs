@@ -10,6 +10,8 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.Common.Model
     {
         public IReadOnlyReactiveCollection<Enemy> Enemies { get; }
         public IReactiveCommand<SpawnCommand> Spawned { get; }
+        public IReactiveCommand<Unit> DiedAll { get; }
+        public void Kill(Enemy enemy);
         public UniTask Spawn(Enemy entity);
         public void SetSpawner(EnemySpawner enemySpawner);
         public UniTask Spawn();

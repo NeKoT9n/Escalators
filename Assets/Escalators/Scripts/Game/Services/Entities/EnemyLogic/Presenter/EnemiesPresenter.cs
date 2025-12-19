@@ -32,6 +32,8 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.EnemyLogic.Presenter
                     command.Completion.TrySetResult();
                 })
                 .AddTo(_disposables);
+
+
         }
 
         private async UniTask SpawnEnemy(Enemy enemy)
