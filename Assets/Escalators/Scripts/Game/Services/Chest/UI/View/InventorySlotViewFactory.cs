@@ -13,8 +13,7 @@ namespace Assets.Escalators.Scripts.Game.Services.Chest.View
             _worldFactory = worldFactory;
         }
         public async UniTask<SlotView> Create(IReadOnlyInventorySlot data)
-        {
-            
+        {           
             return await _worldFactory.Create<SlotView>(data.Prefab);
         }
     }

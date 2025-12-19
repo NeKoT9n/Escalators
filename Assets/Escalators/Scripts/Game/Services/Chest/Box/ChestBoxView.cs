@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Assets.Escalators.Scripts.Game.Services.Chest.Box
 {
-    public class ChestBox : MonoBehaviour 
+    public class ChestBoxView : MonoBehaviour 
     {
         public async UniTask Appear()
         {
@@ -21,7 +21,7 @@ namespace Assets.Escalators.Scripts.Game.Services.Chest.Box
             .SetEase(Ease.InOutQuad));
 
             await chestSequence.ToUniTask();
-            await UniTask.WaitForSeconds(1);
+            await UniTask.WaitForSeconds(0.3f);
 
             transform.DOShakeScale(0.2f, 0.2f);
 

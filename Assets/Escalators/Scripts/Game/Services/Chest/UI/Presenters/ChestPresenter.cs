@@ -36,6 +36,8 @@ namespace Assets.Escalators.Scripts.Game.Services.Chest.Presenters
             _chestService.Opened
                 .Subscribe(_ => Open())
                 .AddTo(_disposables);
+
+            _chestView.SetKeyColor(_chestService.KeyColor);
         }
 
         private void SetProgress(int keyCount)

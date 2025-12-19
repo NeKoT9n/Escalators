@@ -10,6 +10,7 @@ namespace Assets.Escalators.Scripts.Game.Services.Chest.View
         [SerializeField] private InventoryView _inventoryView;
         [SerializeField] private Image _icon;
         [SerializeField] private TextMeshProUGUI _progress;
+        [SerializeField] private Image _keyIcon;
 
         public InventoryView InventoryView => _inventoryView;
 
@@ -20,9 +21,9 @@ namespace Assets.Escalators.Scripts.Game.Services.Chest.View
             => _progress.text = progress;
 
         public void Open()
-        {
-            _inventoryView.Hide();
-        }
+            => _inventoryView.Hide();
 
+        public void SetKeyColor(Color color)
+            => _keyIcon.color = color;
     }
 }

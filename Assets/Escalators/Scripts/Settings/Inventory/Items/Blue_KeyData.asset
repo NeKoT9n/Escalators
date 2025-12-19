@@ -14,10 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Escalators.Scripts.Game.Services.Chest.Model.Inventory.Items.Data.KeyData
   _icon: {fileID: 841382400, guid: 4658ef050049e5a4b927fb64866f431b, type: 3}
   _description: 2
-  _prefab:
-    m_AssetGUID: 
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_SubObjectGUID: 
-    m_EditorAssetChanged: 0
   _keyType: 2
+  _color: {r: 0.19502299, g: 0.103773475, b: 1, a: 1}

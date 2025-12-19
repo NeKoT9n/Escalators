@@ -8,13 +8,13 @@ namespace Assets.Escalators.Scripts.Game.Services.Chest.Box
 {
     public class ChestBoxService : IChestBoxService
     {
-        private readonly ChestBox _chestBox;
+        private readonly ChestBoxView _chestBox;
         private readonly IPlayerService _playerService;
 
         private Vector3 _spawnOffset = new(0, 0, 2);
         private float _positinY;
 
-        public ChestBoxService(ChestBox chestBox, IPlayerService playerService)
+        public ChestBoxService(ChestBoxView chestBox, IPlayerService playerService)
         {
             _chestBox = chestBox;
             _playerService = playerService;

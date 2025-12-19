@@ -5,6 +5,7 @@ namespace Inventory
 {
     public interface IChestService
     {
+        public Color KeyColor { get; }
         public IReactiveProperty<Sprite> Icon { get; }
         public IReactiveCommand<int> KeyAdded { get; }
         public IReactiveCommand<int> KeyRemoved { get; }

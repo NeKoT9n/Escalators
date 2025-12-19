@@ -9,6 +9,8 @@ namespace Assets.CodeCore.Scripts.Game.Services.SceneLoad
         private readonly ISceneLoader _sceneLoader;
         private readonly LoadingCurtain _loadingCurtain;
 
+        private string _currentSceneName;
+
         public SceneLoadService(
             ISceneLoader sceneLoader,
             LoadingCurtain loadingCurtain)
@@ -21,8 +23,22 @@ namespace Assets.CodeCore.Scripts.Game.Services.SceneLoad
         {
             _loadingCurtain.Show();
 
+            _currentSceneName = level;
             await _sceneLoader.LoadScene(Constants.SceneNames.GAME);
             await _sceneLoader.LoadScene(level, LoadSceneMode.Additive);
+        }
+
+        public async UniTask RestartLevel()
+        {
+            await _sceneLoader.UnloadAllScenes();
+            await LoadGameScene(_currentSceneName);
+        }
+
+        public async UniTask LoadBootScene()
+        {
+            _loadingCurtain.Show();
+            await _sceneLoader.LoadScene(Constants.SceneNames.BOOT);
+
         }
 
         public async UniTask LoadMainMenuScene()
@@ -33,6 +49,8 @@ namespace Assets.CodeCore.Scripts.Game.Services.SceneLoad
 
             _loadingCurtain.Hide();
         }
+
+
 
     }
 }

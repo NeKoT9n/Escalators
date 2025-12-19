@@ -23,6 +23,7 @@ namespace Assets.Escalators.Scripts.Game.Services.Entities.Abstractions
         public UniTask Spawn(Player player)
         {
             _player.Value = player;
+            player.Died.Subscribe(_ => _died.Execute(Unit.Default));
 
             SpawnCommand spawnCommand = new(player);
 

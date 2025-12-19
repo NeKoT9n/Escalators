@@ -14,7 +14,7 @@ namespace Assets.CodeCore.Scripts.Game.Providers.Level
 
         private IAssetProvider _assetProvider;
 
-        private TData _data;
+        protected TData _data;
         protected abstract string AssetName { get; }
 
         public GameDataProvider(IAssetProvider assetProvider)

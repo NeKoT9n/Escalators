@@ -7,6 +7,8 @@ using System;
 using UniRx;
 using UnityEngine;
 using Assets.Escalators.Scripts.Game.Services.Entities.Common.Model;
+using Assets.Escalators.Scripts.Game.Services.Chest.Model.Inventory.Items.Data;
+using System.Linq;
 
 namespace Inventory
 {
@@ -17,6 +19,7 @@ namespace Inventory
         public IReactiveCommand<Unit> Opened => _opened;
         public IReactiveCommand<Unit> ShowUI => _showUI;
         public IReactiveProperty<Sprite> Icon => _currentIcon;
+        public Color KeyColor { get; private set; }
 
         private ChestData _chestData; 
 
@@ -28,6 +31,7 @@ namespace Inventory
 
         private readonly IInventoryService _inventoryService;
         private readonly IGameDataProvider<ChestData> _dataProvider;
+        private readonly IGameDataProvider<KeyDataList> _keyDataListProvider;
         private readonly IEnemyService _enemyService;
         private readonly IChestBoxService _chestBoxService;
         private readonly CompositeDisposable _disposables = new();
@@ -37,11 +41,13 @@ namespace Inventory
         public ChestService(
             IInventoryService inventoryService,
             IGameDataProvider<ChestData> chestData,
+            IGameDataProvider<KeyDataList> keyDataListProvider,
             IEnemyService enemyService,
             IChestBoxService chestBoxService)
         {
             _inventoryService = inventoryService;
             _dataProvider = chestData;
+            _keyDataListProvider = keyDataListProvider;
             _enemyService = enemyService;
             _chestBoxService = chestBoxService;
         }
@@ -49,7 +55,12 @@ namespace Inventory
         public void Initialize()
         {
             _chestData = _dataProvider.Data;
+
+            KeyData keyData = _keyDataListProvider.Data.Keys.
+                FirstOrDefault(keyData => keyData.KeyTypeId == _chestData.Key);
+
             _currentIcon.Value = _chestData.Defualt;
+            KeyColor = keyData.Color;
 
             _inventoryService.Registered
                 .Subscribe(inventory =>
